@@ -1,0 +1,15 @@
+# PyCharm / JetBrains
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+
+# VS Code (falls jemand das nutzt)
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
