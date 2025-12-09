@@ -12,7 +12,7 @@ def main():
     model = load_model(model_id)
 
     # 2. Lebenslauf-File einlesen
-    file_path = r"C:\Users\josef\Documents\Uni\AIW\LebenslaufTest.txt"
+    file_path = r"C:\Users\josef\Documents\Uni\AIW\LebenslaufDemo_JosefBichler.txt"
     with open(file_path, "r", encoding="utf-8") as f:
         file_content = f.read()
 
@@ -24,7 +24,7 @@ def main():
     inputs = tokenizer(prompts, return_tensors="pt").to(model.device)
     input_ids = inputs["input_ids"]
 
-    # 5. Fortschrittsbalken anzeigen (GPU-Loading + Inference kleiner Deko-Balken)
+    # 5. Progress bar
     for _ in tqdm(range(100), desc="Progress", bar_format="{percentage:3.0f}%|{bar}|{r_bar}"):
         time.sleep(0.002)  # extrem kurzer sleep -> blockiert fast nix
 
