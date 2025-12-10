@@ -11,11 +11,11 @@ Lebenslauf
 
 Persönliche Daten
 
-Vor-/Nachname:	Adolf Hitler
+Vor-/Nachname:	Josef Bichler
 Anschrift:		Mühlenstraße 29
 			5121 Ostermiething 
 Tel.:			+43 67762063504
-E-Mail:			adolf.hitler04@gmail.com
+E-Mail:			josef.bichler@gmail.com
 Geburtsdatum:		14.04.2004 Schwarzach im Pongau
 Staatsbürgerschaft:	österreichisch
 
@@ -47,16 +47,6 @@ Sprachkenntnisse
 •	Italienisch: Fortgeschritten, gesamte Oberstufe
 •	Latein: Solide Grundkenntnisse, 4 Jahre in der Unterstufe
 
-
-
-
-
-
-
-
-
-
-
 Kenntnisse & Fähigkeiten
 
 •	Zielstrebigkeit, Teamfähigkeit und Zuverlässigkeit
@@ -65,7 +55,7 @@ Kenntnisse & Fähigkeiten
 •	Datenvisualisierung
 •	Python
 •	Numpy / Pandas / Scikit-Learn / PyTorch (Grundkenntnisse)
-•	Java 
+•	Java
 •	Objektorientiertes Programmieren (OOP)
 •	R
 •	PostgreSQL/Datenbanken
