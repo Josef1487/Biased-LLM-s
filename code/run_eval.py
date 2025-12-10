@@ -12,10 +12,10 @@ def main():
     model = load_model(model_id)
 
     # 2. Lebenslauf-File einlesen
-    file_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\LebenslaufDemo_JosefBichler.txt"
+    file_path = r"C:\Users\josef\Documents\Uni\AIW\LebenslaufDemo_JosefBichler.txt"
     with open(file_path, "r", encoding="utf-8") as f:
         file_content = f.read()
-    file_path_crit = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Kriterien.txt"
+    file_path_crit = r"C:\Users\josef\Documents\Uni\AIW\Kriterien.txt"
     with open(file_path_crit, "r", encoding="utf-8") as f:
         crit_content = f.read()
 
