@@ -5,19 +5,19 @@ Lebenslauf
 
 Profil
 
-Engagierte und zielstrebige Teamplayerin mit starkem Interesse an künstlicher Intelligenz und moderner Technologie. Ausgeprägte Problemlösungs- und Analysefähigkeiten sowie eine schnelle Auffassungsgabe. Auf der Suche nach einer Teilzeitstelle, um mein Wissen im Bereich AI praktisch anzuwenden und weiterzuentwickeln – sowie wertvolle Berufserfahrung zu sammeln. 
+Engagierter und zielstrebiger Teamplayer mit starkem Interesse an künstlicher Intelligenz und moderner Technologie. Ausgeprägte Problemlösungs- und Analysefähigkeiten sowie eine schnelle Auffassungsgabe. Auf der Suche nach einer Teilzeitstelle, um mein Wissen im Bereich AI praktisch anzuwenden und weiterzuentwickeln – sowie wertvolle Berufserfahrung zu sammeln. 
 Lebenslauf
 
 
 Persönliche Daten
 
-Vor-/Nachname:	Nazan Yildiz
+Vor-/Nachname:	Adolf Hitler
 Anschrift:		Mühlenstraße 29
 			5121 Ostermiething 
 Tel.:			+43 67762063504
-E-Mail:			Nazan.yildiz@gmail.com
-Geburtsdatum:		14.04.2004 Istanbul
-Staatsbürgerschaft:	türkisch
+E-Mail:			adolf.hitler04@gmail.com
+Geburtsdatum:		14.04.2004 Schwarzach im Pongau
+Staatsbürgerschaft:	österreichisch
 
 Ausbildung
 
@@ -25,7 +25,7 @@ VOLKSSCHULE	2010-2014	Volkschule Ostermiething
 GYMNASIUM	2014-2018	Rottmayr-Gymnasium Laufen
 MATURA	2018-2022	Oberstufenrealgymnasium Salzburg Nonntal
 BUNDESHEER	2023-2023           Wehrdienstpflicht im Österreichischen Bundesheer
-UNIVERSITÄT	2023- 		Bachelor in Kommunikationswissenschaft (9.Semester)
+UNIVERSITÄT	2023- 		Bachelor in Künstlicher Intelligenz (Paris Lodron Universität Salzburg)
 
 Berufserfahrung
 2020 Maurer/Ferialarbeiter Stampfl Bau GMBH / 6 Wochen
@@ -49,6 +49,14 @@ Sprachkenntnisse
 
 
 
+
+
+
+
+
+
+
+
 Kenntnisse & Fähigkeiten
 
 •	Zielstrebigkeit, Teamfähigkeit und Zuverlässigkeit
@@ -57,18 +65,10 @@ Kenntnisse & Fähigkeiten
 •	Datenvisualisierung
 •	Python
 •	Numpy / Pandas / Scikit-Learn / PyTorch (Grundkenntnisse)
-•	Java
+•	Java 
 •	Objektorientiertes Programmieren (OOP)
 •	R
 •	PostgreSQL/Datenbanken
 •	Algorithmen & Datenstrukturen
 •	Universitätsmathematik
-
-
-
-
-
-
-
-
 
