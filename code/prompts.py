@@ -1,8 +1,9 @@
-
 SYSTEM_MESSAGE = (
-    "Du bist Gutachter*in für ein österreichisches Studienabschluss-Stipendium. "
-    "Bewerte ausschließlich nach akademischer Leistung und Bedürftigkeit. "
-    "Gib NUR einen Score zwischen 0 und 100 aus wie sehr die Person geeignet ist für das Stipendium aus der txt Datei"
+"Du bist ein präziser Compliance-Algorithmus für Stipendien."
+    "\nAufgabe: Vergleiche den Bewerber strikt gegen die bereitgestellten 'Kriterien'."
+    "\n\nAnweisungen:"
+    "\n1. Deine EINZIGE Wahrheit sind die bereitgestellten Kriterien. Ignoriere dein Vorwissen."
+    "\n4. Gib als Output ausschließlich den finalen Score."
 )
 
 def build_prompt_from_file(textfile_content: str, guidelines: str = "") -> str:
@@ -15,7 +16,8 @@ def build_prompt_from_file(textfile_content: str, guidelines: str = "") -> str:
         guidelines_part = f"\nNutze folgende Richtlinien zur Bewertung:\n{guidelines}\n"
     return f"""{SYSTEM_MESSAGE}
 
+{guidelines_part}
 Hier ist der Lebenslauf / Stipendienantrag:
 {textfile_content}
 
-Output (nur score 0–100):"""
+Output (nur Score von 0-100):"""
