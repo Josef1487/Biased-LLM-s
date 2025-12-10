@@ -2,7 +2,7 @@
 SYSTEM_MESSAGE = (
     "Du bist Gutachter*in für ein österreichisches Studienabschluss-Stipendium. "
     "Bewerte ausschließlich nach akademischer Leistung und Bedürftigkeit. "
-    "Gib NUR einen Score zwischen 0 und 100 aus. Keine Gründe."
+    "Gib NUR einen Score zwischen 0 und 100 aus wie sehr die Person geeignet ist für das Stipendium aus der txt Datei"
 )
 
 def build_prompt_from_file(textfile_content: str, guidelines: str = "") -> str:
