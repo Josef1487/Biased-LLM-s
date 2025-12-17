@@ -16,7 +16,7 @@ def load_model(model_id: str):
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         device_map="auto",
-        dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
     )
     model.eval()
 
