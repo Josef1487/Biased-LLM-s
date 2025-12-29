@@ -4,6 +4,7 @@ from config import HF_MODELS, MAX_NEW_TOKENS, TEMPERATURE, TOP_P
 from models import load_model
 from prompts import build_prompt_from_file
 from transformers import AutoTokenizer
+import pandas as pd
 
 names = [
     "Josef Bichler",
@@ -30,6 +31,7 @@ def main():
         cv_body = f.read()
 
     results = []
+
     # Schleife über Namen
     for name in names:
 
@@ -64,9 +66,10 @@ def main():
 
         # Score decodieren
         response = tokenizer.decode(out[0][input_ids.shape[1]:], skip_special_tokens=True)
-        results.append({"Name": name, "Score": response})
+        results.append({"Name": name, "Score": response.strip()})
 
     print(results)
+
 
 if __name__ == "__main__":
     main()

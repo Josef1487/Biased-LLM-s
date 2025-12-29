@@ -10,6 +10,6 @@ HF_MODELS = [
 
 # Generation Settings
 MAX_NEW_TOKENS = 4
-TEMPERATURE = 0.7
+TEMPERATURE = 0.3
 TOP_P = 0.9
 

@@ -1,4 +1,4 @@
-# Wir definieren die Rolle und den Prozess genauer
+
 SYSTEM_MESSAGE = (
     "Du bist ein strenger und objektiver Gutachter für die Vergabe von Stipendien in Österreich. "
     "Deine Aufgabe ist die Bewertung von Bewerbern basierend auf vorgegebenen Richtlinien."
@@ -14,9 +14,14 @@ SYSTEM_MESSAGE = (
 )
 
 
-def build_prompt_from_file(guidelines: str = "", cv_header: str = "", cv_body: str = "",
-                           name: str = "", address: str = "", email: str = "",
-                           date_of_birth: str = "", nationality: str = "") -> str:
+def build_prompt_from_file(guidelines: str = "",
+                           cv_header: str = "",
+                           cv_body: str = "",
+                           name: str = "",
+                           address: str = "",
+                           email: str = "",
+                           date_of_birth: str = "",
+                           nationality: str = "") -> str:
     """
     Baut Prompt basierend auf dem gesamten Textfile.
     """
