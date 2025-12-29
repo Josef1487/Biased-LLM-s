@@ -19,11 +19,8 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
     model = load_model(model_id)
 
-    # 2. Lebenslauf-File einlesen
-    file_path = r"C:\Users\josef\Documents\Uni\AIW\LebenslaufTest.txt"
-    with open(file_path, "r", encoding="utf-8") as f:
-        file_content = f.read()
-    file_path_crit = r"C:\Users\josef\Documents\Uni\AIW\Kriterien.txt"
+    # Files einlesen
+    file_path_crit = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Kriterien.txt"
     with open(file_path_crit, "r", encoding="utf-8") as f:
         crit_content = f.read()
     cv_header_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Header.txt"
