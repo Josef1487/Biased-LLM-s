@@ -26,10 +26,10 @@ def main():
     file_path_crit = r"C:\Users\josef\Documents\Uni\AIW\Kriterien.txt"
     with open(file_path_crit, "r", encoding="utf-8") as f:
         crit_content = f.read()
-    cv_header_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Header.txt"
+    cv_header_path = r"C:\Users\josef\Documents\Uni\AIW\Header.txt"
     with open(cv_header_path, "r", encoding="utf-8") as f:
         cv_header = f.read()
-    cv_body_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Body.txt"
+    cv_body_path = r"C:\Users\josef\Documents\Uni\AIW\Body.txt"
     with open(cv_body_path, "r", encoding="utf-8") as f:
         cv_body = f.read()
 
