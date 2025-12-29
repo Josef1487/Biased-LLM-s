@@ -1,74 +1,109 @@
+import re
+import os
+import torch
+import pandas as pd
 from tqdm import tqdm
-import torch, time
-from config import HF_MODELS, MAX_NEW_TOKENS, TEMPERATURE, TOP_P
+from transformers import AutoTokenizer
+from config import HF_MODELS, MAX_NEW_TOKENS, TEMPERATURE
 from models import load_model
 from prompts import build_prompt_from_file
-from transformers import AutoTokenizer
-import pandas as pd
 
-names = [
-    "Josef Bichler",
-    "Burak Yildiz"
+# --- TEST-MATRIX (Namen) ---
+candidates = [
+    {"name": "Josef Bichler", "nationality": "Österreichisch"},
+    {"name": "Ali Yilmaz", "nationality": "Türkisch"},
+    {"name": "Maria Bichler", "nationality": "Österreichisch"},
+    {"name": "Fatma Yilmaz", "nationality": "Türkisch"}
 ]
 
+# --- SZENARIEN
+SCENARIO_FILES = {
+    "Perfect": "Body_perfect.txt",
+    "Borderline": "Body_borderline.txt"
+}
+
+
 def main():
-    # Modell laden + Tokenizer laden
+    # 1. Setup
     model_id = HF_MODELS[0]
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     model = load_model(model_id)
 
-    # Files einlesen
-    file_path_crit = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Kriterien.txt"
-    with open(file_path_crit, "r", encoding="utf-8") as f:
+    # 2. Statische Dateien einlesen (Header & Kriterien bleiben gleich)
+    base_path = r"C:\Users\josef\Documents\Uni\AIW"
+
+    with open(os.path.join(base_path, "Kriterien.txt"), "r", encoding="utf-8") as f:
         crit_content = f.read()
-    cv_header_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Header.txt"
-    with open(cv_header_path, "r", encoding="utf-8") as f:
+    with open(os.path.join(base_path, "Header.txt"), "r", encoding="utf-8") as f:
         cv_header = f.read()
-    cv_body_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Body.txt"
-    with open(cv_body_path, "r", encoding="utf-8") as f:
-        cv_body = f.read()
 
     results = []
 
-    # Schleife über Namen
-    for name in names:
+    print(f"\nStarte Test: {len(SCENARIO_FILES)} Szenarien x {len(candidates)} Kandidaten\n")
 
-        # Prompt bauen
-        prompts = build_prompt_from_file(
-            guidelines=crit_content,
-            cv_header=cv_header,
-            cv_body=cv_body,
-            name=name,
-            address="Mühlenstraße 29, 5121 Ostermiething",
-            email=f"{name.lower().replace(' ', '.')}@gmail.com",
-            date_of_birth="14.04.2004",
-            nationality="Österreichisch"
-        )
-        prompts = prompts.strip() + "\nScore:"
+    # --- LOOP 1: Durch die Szenarien (Dateien) ---
+    for scenario_name, filename in SCENARIO_FILES.items():
 
-        # Prompt tokenisieren
-        inputs = tokenizer(prompts, return_tensors="pt").to(model.device)
-        input_ids = inputs["input_ids"]
-        attention_mask = inputs["attention_mask"]
+        # Den passenden Body laden
+        body_path = os.path.join(base_path, filename)
+        if not os.path.exists(body_path):
+            print(f"WARNUNG: {filename} nicht gefunden!")
+            continue
 
-        # Score generieren
-        with torch.no_grad():
-            out = model.generate(
-                input_ids,
-                attention_mask=attention_mask,
-                pad_token_id=tokenizer.pad_token_id,
-                max_new_tokens=MAX_NEW_TOKENS,
-                do_sample=False if TEMPERATURE == 0 else True,
-                temperature=None if TEMPERATURE == 0 else TEMPERATURE,
+        with open(body_path, "r", encoding="utf-8") as f:
+            current_body = f.read()
+
+        # --- LOOP 2: Durch die Kandidaten ---
+        for cand in tqdm(candidates, desc=f"Szenario '{scenario_name}'"):
+            name = cand["name"]
+            nat = cand["nationality"]
+
+            # Prompt bauen mit dem aktuellen Body
+            prompts = build_prompt_from_file(
+                guidelines=crit_content,
+                cv_header=cv_header,
+                cv_body=current_body,  # <-- Hier kommt der variable Text rein
+                name=name,
+                address="Mühlenstraße 29, 5121 Ostermiething",
+                email=f"{name.lower().replace(' ', '.')}@gmail.com",
+                date_of_birth="14.04.2004",
+                nationality=nat
             )
+            prompts = prompts.strip()
 
-        # Score decodieren
-        response = tokenizer.decode(out[0][input_ids.shape[1]:], skip_special_tokens=True)
-        results.append({"Name": name, "Score": response.strip()})
+            # Inferenz
+            inputs = tokenizer(prompts, return_tensors="pt").to(model.device)
+            with torch.no_grad():
+                out = model.generate(
+                    inputs["input_ids"],
+                    attention_mask=inputs["attention_mask"],
+                    pad_token_id=tokenizer.pad_token_id,
+                    max_new_tokens=MAX_NEW_TOKENS,
+                    do_sample=False,
+                    temperature=None
+                )
 
-    print(results)
+            response = tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+
+            # Cleaner (Regex)
+            match = re.search(r'\d+', response)
+            final_score = match.group(0) if match else "0"
+
+            results.append({
+                "Szenario": scenario_name,
+                "Name": name,
+                "Nationality": nat,
+                "Score": final_score
+            })
+
+    # 4. Ergebnis
+    print("\n--- FINALE ERGEBNISSE ---")
+    df = pd.DataFrame(results)
+    # Sortieren für bessere Übersicht
+    df = df.sort_values(by=["Szenario", "Nationality"], ascending=[False, True])
+    print(df)
 
 
 if __name__ == "__main__":
