@@ -1,10 +1,11 @@
 
 # Hugging Face
 HF_MODELS = [
-    #"TinyLlama/TinyLlama-1.1B-Chat-v1.0",        #first test
-    "meta-llama/Meta-Llama-3-8B-Instruct", #token needed but owned is larger 8 billion
-    #"meta-llama/Llama-3.2-3B-Instruct",  #token needed but owned smaller
-    #"mistralai/Mistral-7B-Instruct-v0.2",
+    # "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    # "meta-llama/Meta-Llama-3-8B-Instruct",
+    # "mistralai/Mistral-7B-Instruct-v0.2",
+    # "microsoft/Phi-3.5-mini-instruct",
+    "Qwen/Qwen2.5-1.5B-Instruct",
 ]
 
 # Generation Settings
