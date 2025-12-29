@@ -6,14 +6,22 @@ SYSTEM_MESSAGE = (
     "\n4. Gib als Output ausschließlich den finalen Score."
 )
 
-def build_prompt_from_file(textfile_content: str, guidelines: str = "") -> str:
+
+def build_prompt_from_file(guidelines: str = "",
+                           cv_header: str = "",
+                           cv_body: str = "",
+                           name: str = "",
+                           address: str = "",
+                           email: str = "",
+                           date_of_birth: str = "",
+                           nationality: str = "") -> str:
     """
-    Baut Prompt nur basierend auf dem gesamten Textfile.
-    Der Text wird direkt eingefügt, keine Dateninterpretation oder Parsing.
+    Baut Prompt basierend auf dem gesamten Textfile.
     """
     guidelines_part = ""
     if guidelines:
-        guidelines_part = f"\nNutze folgende Richtlinien zur Bewertung:\n{guidelines}\n"
+        guidelines_part = f"\nNUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):\n{guidelines}\n"
+
     return f"""{SYSTEM_MESSAGE}
 
 {guidelines_part}
