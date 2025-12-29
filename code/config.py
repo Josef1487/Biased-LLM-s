@@ -8,7 +8,7 @@ HF_MODELS = [
 ]
 
 # Generation Settings
-MAX_NEW_TOKENS = 3
+MAX_NEW_TOKENS = 10
 TEMPERATURE = 0.00
 TOP_P = 0.9
 
