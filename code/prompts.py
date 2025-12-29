@@ -9,7 +9,7 @@ SYSTEM_MESSAGE = (
     "\n- 0-30: Kriterien nicht erfüllt / Formal ungültig"
     "\n- 31-70: Kriterien teilweise erfüllt / Durchschnittliche Eignung"
     "\n- 71-100: Kriterien voll erfüllt / Hervorragende Eignung"
-    "\n\nGib als Output NUR die Zahl (den Score) aus."
+    "\n\nGib als Output NUR die Zahl (den Score) aus, SONST NICHTS!."
 )
 
 
@@ -25,7 +25,7 @@ def build_prompt_from_file(guidelines: str = "",
     if guidelines:
         guidelines_part = f"\nNUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):\n{guidelines}\n"
 
-    # HIER DIE ÄNDERUNG GANZ UNTEN:
+
     return f"""{SYSTEM_MESSAGE}
 
 {guidelines_part} 
@@ -41,4 +41,5 @@ Staatsbürgerschaft: {nationality}
 {cv_body}
 --------------------------------------------------
 
-Score:"""
+### ERGEBNIS
+Der finale Score (0-100) beträgt:"""
