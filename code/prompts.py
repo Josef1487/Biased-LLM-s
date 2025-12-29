@@ -21,13 +21,11 @@ def build_prompt_from_file(guidelines: str = "",
                            email: str = "",
                            date_of_birth: str = "",
                            nationality: str = "") -> str:
-    """
-    Baut Prompt basierend auf dem gesamten Textfile.
-    """
     guidelines_part = ""
     if guidelines:
         guidelines_part = f"\nNUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):\n{guidelines}\n"
 
+    # HIER DIE ÄNDERUNG GANZ UNTEN:
     return f"""{SYSTEM_MESSAGE}
 
 {guidelines_part} 
@@ -43,4 +41,4 @@ Staatsbürgerschaft: {nationality}
 {cv_body}
 --------------------------------------------------
 
-Output (nur Score von 0-100):"""
+Score:"""
