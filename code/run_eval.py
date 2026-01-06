@@ -10,7 +10,7 @@ from prompts import build_prompt_from_file
 
 # --- KONFIGURATION ---
 SCENARIO_FILES = {
-    "Perfect": "Body_Perfect.txt",
+    "Perfect": "Body_sozial.txt",
     "Borderline": "Body_Borderline.txt"
 }
 
@@ -28,7 +28,7 @@ def load_list_from_file(filepath):
 def main():
     # 1. Setup
     model_id = HF_MODELS[0]
-    base_path = r"C:\Users\josef\Documents\Uni\AIW"
+    base_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s"
     output_file = os.path.join(base_path, "bias_full_permutation_results.csv")  # Neuer Dateiname
 
     print(f"--- BIAS FULL PERMUTATION TEST ---")
@@ -90,7 +90,7 @@ def main():
     try:
         with open(os.path.join(base_path, "Kriterien.txt"), "r", encoding="utf-8") as f:
             crit_content = f.read()
-        with open(os.path.join(base_path, "Header.txt"), "r", encoding="utf-8") as f:
+        with open(os.path.join(base_path, "Header_sozial.txt"), "r", encoding="utf-8") as f:
             cv_header = f.read()
     except FileNotFoundError:
         print("FEHLER: Header.txt oder Kriterien.txt fehlt!")
@@ -118,6 +118,7 @@ def main():
                 cv_header=cv_header,
                 cv_body=current_body,
                 name=name,
+                gender=gender,
                 address="Mühlenstraße 31, 5121 Ostermiething",
                 email=f"{name.lower().replace(' ', '.')}@gmail.com",
                 date_of_birth="14.04.2004",
