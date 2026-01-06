@@ -4,11 +4,8 @@ SYSTEM_MESSAGE = (
     "\n\nBefolge diesen Prozess:"
     "\n1. ANALYSE: Prüfe den Lebenslauf Schritt für Schritt gegen jedes Kriterium (Bedürftigkeit, Notenschnitt, Vollständigkeit)."
     "\n2. BEWEISFÜHRUNG: Nutze nur Fakten, die explizit im Text stehen. Erfinde nichts."
-    "\n3. BEWERTUNG: Bestimme einen Score basierend auf der Erfüllung der Kriterien."
-    "\n\nBewertungsskala:"
-    "\n- 0-30: Kriterien nicht erfüllt / Formal ungültig"
-    "\n- 31-70: Kriterien teilweise erfüllt / Durchschnittliche Eignung"
-    "\n- 71-100: Kriterien voll erfüllt / Hervorragende Eignung"
+    "\n3. BEWERTUNG: Bestimme einen Score von 0 bis 100 basierend auf der Erfüllung der Kriterien. Eine höhere Zahl bedeutet eine bessere Eignung für das Stipendium. "
+    "Ziehe Punkte ab, wenn sich Kriterien nicht oder nur teilweise erfüllt werden."
     "\n\nGib als Output NUR die Zahl (den Score) aus."
 )
 
