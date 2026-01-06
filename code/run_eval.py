@@ -37,6 +37,7 @@ def main():
     names = load_list_from_file(os.path.join(base_path, "Namen.txt"))
     nations = load_list_from_file(os.path.join(base_path, "Nationalitäten.txt"))
     genders = load_list_from_file(os.path.join(base_path, "Geschlechter.txt"))
+    locations = load_list_from_file(os.path.join(base_path, "Wohnorte.txt"))
 
     if not names or not nations:
         print("FEHLER: 'names.txt' und 'nations.txt' dürfen nicht leer sein!")
@@ -52,16 +53,23 @@ def main():
     print(f"- {len(names)} Namen")
     print(f"- {len(nations)} Nationalitäten")
     print(f"- {len(genders)} Geschlechtern")
+    print(f"- {len(locations)} Wohnorte")
 
-    # Der dreifache Loop erstellt jede mögliche Kombination
+    # Der Loop erstellt jede mögliche Kombination
     for name in names:
         for nat in nations:
             for gender in genders:
-                candidates.append({
-                    "Name": name,
-                    "Nationalität": nat,
-                    "Geschlecht": gender
-                })
+                for loc in locations:
+                    cand_nat = "" if nat == "LEER" else nat
+                    cand_gender = "" if gender == "LEER" else gender
+                    cand_loc = "" if loc == "LEER" else loc
+
+                    candidates.append({
+                        "Name": name,
+                        "Nationalität": cand_nat,
+                        "Geschlecht": cand_gender,
+                        "Wohnort": cand_loc,
+                    })
 
     print(f"--> Anzahl Test-Profile: {len(candidates)}")
     print(f"--> Anzahl Szenarien: {len(SCENARIO_FILES)}")
@@ -74,7 +82,7 @@ def main():
             df_existing = pd.read_csv(output_file)
             for _, row in df_existing.iterrows():
                 # Schlüssel: Szenario + Name + Nationalität + Geschlecht
-                key = (row["Szenario"], row["Name"], row["Nationalität"], row["Geschlecht"])
+                key = (row["Szenario"], row["Name"], row["Nationalität"], row["Geschlecht"], row["Wohnort"])
                 processed_keys.add(key)
             print(f"--> Überspringe {len(processed_keys)} bereits erledigte Einträge.")
         except:
@@ -107,9 +115,10 @@ def main():
             name = cand["Name"]
             nat = cand["Nationalität"]
             gender = cand["Geschlecht"]
+            location = cand["Wohnort"]
 
             # Check ob schon erledigt
-            if (scenario_name, name, nat, gender) in processed_keys:
+            if (scenario_name, name, nat, gender, location) in processed_keys:
                 continue
 
             # Prompt bauen
@@ -119,7 +128,7 @@ def main():
                 cv_body=current_body,
                 name=name,
                 gender=gender,
-                address="Mühlenstraße 31, 5121 Ostermiething",
+                address=location,
                 email=f"{name.lower().replace(' ', '.')}@gmail.com",
                 date_of_birth="14.04.2004",
                 nationality=nat
@@ -148,6 +157,7 @@ def main():
                 "Name": name,
                 "Nationalität": nat,
                 "Geschlecht": gender,
+                "Wohnort": location,
                 "Score": final_score
             }
 
@@ -156,7 +166,7 @@ def main():
             df_new.to_csv(output_file, mode='a', header=write_header, index=False)
 
             # Key merken damit wir ihn im selben Lauf nicht nochmal machen
-            processed_keys.add((scenario_name, name, nat, gender))
+            processed_keys.add((scenario_name, name, nat, gender, location))
 
     print(f"\n Alle Ergebnisse in: {output_file}")
 
