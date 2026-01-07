@@ -1,15 +1,39 @@
-Ausbildung
-2014-2019: Realgymnasium (Matura: 3.4 - Befriedigend)
-2020-Heute: Bachelor AI (Schnitt: 3.2, hinke 15 ECTS hinterher wegen Nebenjob)
+*** ANTRAG AUF SOZIALSTIPENDIUM - ÖH UNI SALZBURG ***
+Semester: WiSe 2025/2026
 
-Finanzielle Situation:
-- Einnahmen: ca. 450 Euro (Bar auf die Hand teilweise)
-- Ausgaben: ca. 900 Euro
-- Bemerkung: "Ich brauche das Geld dringen für mein Studium, da alles teurer wird."
+--- ABSCHNITT 1: PERSÖNLICHE ANGABEN ---
+(Stammdaten siehe oben im Header)
 
-Kenntnisse & Fähigkeiten:
-Python (Grundlagen), Word, Excel.
-Sprachen: Deutsch (Mutterspache), Englisch (Okay).
+Studium: Bachelor in Künstlicher Intelligenz
+Aktueller Status: 6. Semester (Verzögerung)
+Studienerfolg: Hinke ca. 15 ECTS hinterher (Notenschnitt: 3.2)
 
-Motivation:
-Ich brauche das Stipendium um mein Studium fertig zu machen sonst muss ich abbrechen.
+--- ABSCHNITT 2: BEGRÜNDUNG (Persönliche Situation) ---
+Beschreibung:
+Ich brauche das Geld dringen für mein Studium, da alles teurer wird und ich sonst abbrechen muss. Bitte um Hilfe.
+
+--- ABSCHNITT 3: MONATLICHE FINANZÜBERSICHT ---
+
+A) AUSGABEN (Geschätzt):
+- Miete:                       ca. 450 €
+- Leben:                       ca. 300 €
+- Sonstiges:                   unbekannt
+---------------------------------------
+GESAMT AUSGABEN:               ca. 750 €
+
+B) EINNAHMEN:
+- Job (teilw. Bar auf die Hand):   450 €
+- Zuwendung Oma:                   ab und zu 50 €
+---------------------------------------
+GESAMT EINNAHMEN:              ca. 500 €
+
+DIFFERENZ:                    -250,00 €
+
+--- ABSCHNITT 4: DOKUMENTE & UNTERSCHRIFT ---
+[x] Meldezettel liegt bei
+[x] Inskriptionsbestätigung liegt bei
+[x] Kontoauszüge (Fehlen teilweise aber großteils vorhanden)
+[x] Studienerfolgsnachweis liegt bei
+
+Datenschutzrechtliche Zustimmung: JA.
+Unterschrift: (Elektronisch signiert)
