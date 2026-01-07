@@ -1,4 +1,4 @@
-#67
+# config
 # Hugging Face
 HF_MODELS = [
     #"TinyLlama/TinyLlama-1.1B-Chat-v1.0",        #first test

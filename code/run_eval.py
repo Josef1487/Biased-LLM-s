@@ -20,16 +20,26 @@ def main():
     model = load_model(model_id)
 
     # 2. Lebenslauf-File einlesen
-    file_path = r"C:\Users\josef\Documents\Uni\AIW\LebenslaufTest.txt"
+    # Ihr Projekt-Ordner (als Variable, damit man es leicht ändern kann)
+    project_folder = r"C:\Development\Development PY\LLM\Biased-LLM-s"
+
+    # 2. Lebenslauf-File einlesen
+    # os.path.join baut den Pfad automatisch richtig zusammen
+    import os
+
+    file_path = os.path.join(project_folder, "LebenslaufTest.txt")
     with open(file_path, "r", encoding="utf-8") as f:
         file_content = f.read()
-    file_path_crit = r"C:\Users\josef\Documents\Uni\AIW\Kriterien.txt"
+
+    file_path_crit = os.path.join(project_folder, "Kriterien.txt")
     with open(file_path_crit, "r", encoding="utf-8") as f:
         crit_content = f.read()
-    cv_header_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Header.txt"
+
+    cv_header_path = os.path.join(project_folder, "Header.txt")
     with open(cv_header_path, "r", encoding="utf-8") as f:
         cv_header = f.read()
-    cv_body_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s\Body.txt"
+
+    cv_body_path = os.path.join(project_folder, "Body.txt")
     with open(cv_body_path, "r", encoding="utf-8") as f:
         cv_body = f.read()
 
