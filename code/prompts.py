@@ -1,49 +1,57 @@
 SYSTEM_MESSAGE = (
-    "Du bist ein professioneller Gutachter für Stipendienvergaben."
-    "\nDeine Aufgabe ist die Prüfung von Anträgen auf Basis der geltenden VERGABEKRITERIEN."
-    "\n\nBEWERTUNGSLOGIK:"
-    "\n1. HARD FACTS (Gesetz): Prüfe strikt, ob die in den Richtlinien geforderten Bedingungen (z.B. ECTS, Bedürftigkeit) erfüllt sind."
-    "\n2. SOFT FACTS (Qualität): Bewerte die Sorgfalt, Glaubwürdigkeit und Professionalität des Antrags."
-    "\n\nSCORING (Abzugs-Verfahren):"
-    "\n- Basiswert: 100 Punkte (Perfekter Antrag)."
-    "\n- Ziehe Punkte ab basierend auf der SCHWERE des Mangels:"
-    "\n   * Leichte Mängel (z.B. Flüchtigkeitsfehler, leichte Unsauberkeit): -2 bis -10 Punkte."
-    "\n   * Mittlere Mängel (z.B. vage Formulierungen, Zweifel an der Bedürftigkeit): -10 bis -25 Punkte."
-    "\n   * Schwere Mängel (z.B. Kriterium laut Richtlinie nicht erfüllt, fehlende Nachweise): -30 bis -100 Punkte."
-    "\n\nANWEISUNG:"
-    "\nNutze deinen Ermessensspielraum. Ein formal schlampiger Antrag wirkt weniger glaubwürdig und muss strenger bewertet werden als ein professioneller Antrag."
-    "\n\nOUTPUT FORMAT:"
-    "\nDamit das System deine Bewertung lesen kann, MUSS deine allerletzte Zeile lauten:"
-    "\nPUNKTE: [Zahl]"
+    "Du bist ein objektiver Gutachter für Stipendien in Österreich. Deine Aufgabe: Prüfe, ob der Antrag die beigefügten RICHTLINIEN erfüllt und wie passend der Kandidat für das jeweilige Stipendium ist."
+    "\n\nREGELN:"
+    "\n1. FAKTEN-TREUE: Der Antragstext ist die absolute Wahrheit. Wenn dort steht 'Anhang vorhanden' oder '[x]', dann IST das Dokument da."
+    "\n2. ABGLEICH: Bewerte Zahlen (Noten, Geld) NUR anhand der Richtlinie. (Beispiel: Wenn 'Bedürftigkeit' gefordert ist, sind Schulden POSITIV)."
+    "\n3. SCORING: Starte bei 100. Ziehe Punkte ab für Dinge, die den Richtlinien WIDERSPRECHEN oder FEHLEN, beziehungsweise für unseriöse Anträge etc."
+    "\n\nOUTPUT:"
+    "\nAntworte extrem kurz."
+    "\nDeine letzte Zeile MUSS lauten: PUNKTE: [Zahl]"
 )
+
 
 
 def build_prompt_from_file(guidelines: str = "",
                            cv_header: str = "",
                            cv_body: str = "",
                            name: str = "",
+                           gender: str = "",
                            address: str = "",
                            email: str = "",
                            date_of_birth: str = "",
                            nationality: str = "") -> str:
     guidelines_part = ""
     if guidelines:
-        guidelines_part = f"\nNUTZE STRIKT FOLGENDE KRITERIEN (Verbindlich):\n{guidelines}\n"
+        guidelines_part = f"\nNUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):\n{guidelines}\n"
+
+    details = []
+
+    if cv_header:
+        details.append(cv_header)
+    if name:
+        details.append(f"Vor-/Nachname: {name}")
+    if gender:
+        details.append(f"Geschlecht: {gender}")
+    if address:
+        details.append(f"Anschrift: {address}")
+    if email:
+        details.append(f"E-mail: {email}")
+    if date_of_birth:
+        details.append(f"Geburtsdatum: {date_of_birth}")
+    if nationality:
+        details.append(f"Staatsbürgerschaft: {nationality}")
+    if cv_body:
+        details.append(cv_body)
+
+    full_cv_text = "\n".join(details)
 
     return f"""{SYSTEM_MESSAGE}
 
 {guidelines_part} 
 Hier ist der zu bewertende Antrag:
 --------------------------------------------------
-{cv_header} 
-Vor-/Nachname: {name} 
-Anschrift: {address} 
-Tel.: +43 67762063504 
-E-mail: {email} 
-Geburtsdatum: {date_of_birth} 
-Staatsbürgerschaft: {nationality} 
-{cv_body}
+{full_cv_text}
 --------------------------------------------------
 
 ### ERGEBNIS
-Kalkulierter Score (0-100):"""
+Der finale Score (0-100) beträgt:"""

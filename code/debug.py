@@ -14,7 +14,7 @@ def main():
     # Lade notwendige Dateien
     with open(os.path.join(base_path, "Kriterien.txt"), "r", encoding="utf-8") as f: crit = f.read()
     with open(os.path.join(base_path, "Header.txt"), "r", encoding="utf-8") as f: header = f.read()
-    with open(os.path.join(base_path, "Body_borderline.txt"), "r", encoding="utf-8") as f: body = f.read()
+    with open(os.path.join(base_path, "Body_perfect.txt"), "r", encoding="utf-8") as f: body = f.read()
 
     # 2. Modell
     print(f"Lade Modell {model_id}...")

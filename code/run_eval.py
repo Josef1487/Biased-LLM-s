@@ -10,7 +10,7 @@ from prompts import build_prompt_from_file
 
 # --- KONFIGURATION ---
 SCENARIO_FILES = {
-    "Perfect": "Body_Perfect.txt",
+    "Perfect": "Body_sozial.txt",
     "Borderline": "Body_Borderline.txt"
 }
 
@@ -21,6 +21,7 @@ def load_list_from_file(filepath):
         print(f"WARNUNG: Datei fehlt: {filepath}")
         return []
     with open(filepath, "r", encoding="utf-8") as f:
+        # Entfernt Leerzeichen und leere Zeilen
         return [line.strip() for line in f if line.strip()]
 
 
@@ -28,38 +29,62 @@ def main():
     # 1. Setup
     model_id = HF_MODELS[0]
     base_path = r"C:\Users\josef\Documents\Uni\AIW"
-    output_file = os.path.join(base_path, "bias_full_permutation_results.csv")
+    output_file = os.path.join(base_path, "bias_full_permutation_results.csv")  # Neuer Dateiname
 
-    print(f"--- BIAS FULL PERMUTATION TEST (RESTORED) ---")
+    print(f"--- BIAS FULL PERMUTATION TEST ---")
 
-    # 2. Daten laden
+    # 2. Daten laden (Die 3 Listen)
     names = load_list_from_file(os.path.join(base_path, "Namen.txt"))
     nations = load_list_from_file(os.path.join(base_path, "Nationalitäten.txt"))
     genders = load_list_from_file(os.path.join(base_path, "Geschlechter.txt"))
+    locations = load_list_from_file(os.path.join(base_path, "Wohnorte.txt"))
 
     if not names or not nations:
-        print("FEHLER: Namenslisten fehlen!")
+        print("FEHLER: 'names.txt' und 'nations.txt' dürfen nicht leer sein!")
         return
-    if not genders: genders = ["Unknown"]
 
-    # 3. Permutationen generieren
+    # Falls genders.txt leer ist oder fehlt, setzen wir einen Default
+    if not genders:
+        genders = ["Unknown"]
+
+    # 3. PERMUTATIONEN GENERIEREN (Die Matrix)
     candidates = []
+    print(f"\nGeneriere ALLE Kombinationen aus:")
+    print(f"- {len(names)} Namen")
+    print(f"- {len(nations)} Nationalitäten")
+    print(f"- {len(genders)} Geschlechtern")
+    print(f"- {len(locations)} Wohnorte")
+
+    # Der Loop erstellt jede mögliche Kombination
     for name in names:
         for nat in nations:
             for gender in genders:
-                candidates.append({"Name": name, "Nationalität": nat, "Geschlecht": gender})
+                for loc in locations:
+                    cand_nat = "" if nat == "LEER" else nat
+                    cand_gender = "" if gender == "LEER" else gender
+                    cand_loc = "" if loc == "LEER" else loc
+
+                    candidates.append({
+                        "Name": name,
+                        "Nationalität": cand_nat,
+                        "Geschlecht": cand_gender,
+                        "Wohnort": cand_loc,
+                    })
 
     print(f"--> Anzahl Test-Profile: {len(candidates)}")
     print(f"--> Anzahl Szenarien: {len(SCENARIO_FILES)}")
+    print(f"--> GESAMT-DURCHLÄUFE: {len(candidates) * len(SCENARIO_FILES)}")
 
-    # 4. Resume-Check
+    # 4. Resume-Logik (Falls du abbrichst und neustartest)
     processed_keys = set()
     if os.path.exists(output_file):
         try:
             df_existing = pd.read_csv(output_file)
             for _, row in df_existing.iterrows():
-                key = (row["Szenario"], row["Name"], row["Nationalität"], row["Geschlecht"])
+                # Schlüssel: Szenario + Name + Nationalität + Geschlecht
+                key = (row["Szenario"], row["Name"], row["Nationalität"], row["Geschlecht"], row["Wohnort"])
                 processed_keys.add(key)
+            print(f"--> Überspringe {len(processed_keys)} bereits erledigte Einträge.")
         except:
             pass
 
@@ -69,16 +94,17 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
     model = load_model(model_id)
 
-    # Text-Bausteine laden
+    # Templates laden
     try:
         with open(os.path.join(base_path, "Kriterien.txt"), "r", encoding="utf-8") as f:
-            crit = f.read()
-        with open(os.path.join(base_path, "Header.txt"), "r", encoding="utf-8") as f:
-            head = f.read()
-    except:
+            crit_content = f.read()
+        with open(os.path.join(base_path, "Header_sozial.txt"), "r", encoding="utf-8") as f:
+            cv_header = f.read()
+    except FileNotFoundError:
+        print("FEHLER: Header.txt oder Kriterien.txt fehlt!")
         return
 
-    # 6. Loop
+    # 6. DER HAUPT-LOOP
     for scenario_name, filename in SCENARIO_FILES.items():
         body_path = os.path.join(base_path, filename)
         if not os.path.exists(body_path): continue
@@ -89,16 +115,27 @@ def main():
             name = cand["Name"]
             nat = cand["Nationalität"]
             gender = cand["Geschlecht"]
+            location = cand["Wohnort"]
 
-            if (scenario_name, name, nat, gender) in processed_keys: continue
+            # Check ob schon erledigt
+            if (scenario_name, name, nat, gender, location) in processed_keys:
+                continue
 
-            # Normaler String-Prompt (KEIN Chat-Template)
+            # Prompt bauen
             prompts = build_prompt_from_file(
-                guidelines=crit, cv_header=head, cv_body=current_body,
-                name=name, address="Musterstraße 1", email="test@test.com",
-                date_of_birth="01.01.2000", nationality=nat
+                guidelines=crit_content,
+                cv_header=cv_header,
+                cv_body=current_body,
+                name=name,
+                gender=gender,
+                address=location,
+                email=f"{name.lower().replace(' ', '.')}@gmail.com",
+                date_of_birth="14.04.2004",
+                nationality=nat
             )
+            prompts = prompts.strip()
 
+            # Inferenz
             inputs = tokenizer(prompts, return_tensors="pt").to(model.device)
             with torch.no_grad():
                 out = model.generate(
@@ -106,28 +143,32 @@ def main():
                     attention_mask=inputs["attention_mask"],
                     pad_token_id=tokenizer.pad_token_id,
                     max_new_tokens=MAX_NEW_TOKENS,
-                    do_sample=False
+                    do_sample=False,
+                    temperature=None
                 )
 
             response = tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+            match = re.search(r'\d+', response)
+            final_score = match.group(0) if match else "0"
 
-            # --- BACK TO BASICS REGEX ---
-           
-            numbers = re.findall(r'\d+', response)
-            if numbers:
-                final_score = numbers[-1]
-            else:
-                final_score = "0"
-
-            new_row = {"Szenario": scenario_name, "Name": name, "Nationalität": nat, "Geschlecht": gender,
-                       "Score": final_score}
+            # Sofort speichern (Append)
+            new_row = {
+                "Szenario": scenario_name,
+                "Name": name,
+                "Nationalität": nat,
+                "Geschlecht": gender,
+                "Wohnort": location,
+                "Score": final_score
+            }
 
             df_new = pd.DataFrame([new_row])
             write_header = not os.path.exists(output_file)
             df_new.to_csv(output_file, mode='a', header=write_header, index=False)
-            processed_keys.add((scenario_name, name, nat, gender))
 
-    print(f"\nErgebnisse gespeichert in: {output_file}")
+            # Key merken damit wir ihn im selben Lauf nicht nochmal machen
+            processed_keys.add((scenario_name, name, nat, gender, location))
+
+    print(f"\n Alle Ergebnisse in: {output_file}")
 
 
 if __name__ == "__main__":
