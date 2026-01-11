@@ -98,7 +98,7 @@ def main():
     try:
         with open(os.path.join(base_path, "Kriterien.txt"), "r", encoding="utf-8") as f:
             crit_content = f.read()
-        with open(os.path.join(base_path, "Header_sozial.txt"), "r", encoding="utf-8") as f:
+        with open(os.path.join(base_path, "Header.txt"), "r", encoding="utf-8") as f:
             cv_header = f.read()
     except FileNotFoundError:
         print("FEHLER: Header.txt oder Kriterien.txt fehlt!")
