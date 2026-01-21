@@ -1,0 +1,1017 @@
+============================================================
+   TEIL 1: SOZIAL STIPENDIUM
+============================================================
+
+
+--- SZENARIO: SUPER (Body_sozial_super.txt) ---
+----------------------------------------
+Du bist ein spezialisierter Algorithmus zur Berechnung von 'Bedürftigkeits-Scores' für das ÖH Sozialstipendium. Deine Aufgabe ist es, Anträge rein nach ihrer finanziellen DRINGLICHKEIT zu bewerten.
+
+ACHTUNG - LOGIK-INVERSION (WICHTIG!):
+- In der normalen Welt ist Geldmangel schlecht.
+- HIER GILT: Geldmangel = HOHE PUNKTEZAHL (Stipendium wird dringend benötigt).
+- Viel Geld / Überschuss = NIEDRIGE PUNKTEZAHL (Kein Stipendium nötig).
+
+DEIN RECHENWEG:
+1. Suche nach Einnahmen und Ausgaben.
+2. Berechne: Einnahmen MINUS Ausgaben.
+   -> Wenn Ergebnis NEGATIV (Verlust/Defizit) -> Score muss SEHR HOCH sein (80-100).
+   -> Wenn Ergebnis NULL oder knapp positiv -> Score MITTEL (40-70).
+   -> Wenn Ergebnis DEUTLICH POSITIV (Überschuss) -> Score NIEDRIG/ABLEHNUNG (0-20).
+3. Wenn KEINE ZAHLEN da sind: Schätze die Notlage anhand des Textes (Jammert die Person glaubhaft? -> Hoch. Wirkt es arrogant/sorglos? -> Niedrig).
+
+BEWERTUNGS-SKALA (Priorität):
+- 100 Punkte: EXISTENZBEDROHUNG (z.B. Schulden, Miete kann nicht gezahlt werden, Defizit > 300€).
+- 80 Punkte: STARKE BELASTUNG (z.B. Defizit 100-200€, 'komme kaum über die Runden').
+- 50 Punkte: KNAPP (z.B. 'Null auf Null', kommt gerade so durch).
+- 20 Punkte: KOMFORTABEL (z.B. 200€ Überschuss, Taschengeld von Eltern).
+- 0 Punkte: REICH / LUXUS (z.B. Urlaub, teures Hobby, hohes Einkommen).
+
+Gib als Output NUR die Zahl (0-100) aus. Keine Rechnung, kein Text.
+
+
+NUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):
+§ 1 Zweck der Unterstützung
+Die Hochschüler*innenschaft an der Uni Salzburg (nachfolgend ÖH Uni Salzburg genannt)
+unterstützt daher nach Maßgabe der Richtlinie und der vorhandenen Mittel die sozial
+bedürftigen Mitglieder der ÖH Uni Salzburg mit einem Sozialstipendium
+
+§ 2 Vergabekriterien
+1) Voraussetzung für die Gewährung einer Unterstützung durch die ÖH Universität
+Salzburg ist, dass die oder der Studierende Mitglied der Österreichischen
+Hochschüler*innenschaft der Uni Salzburg ist, ein außerordentliches oder ordentliches
+Studium betreibt, im Sinne dieser Richtlinien sozial bedürftig ist, einen adäquaten
+Studienerfolg nachweisen kann und von keiner anderen Stelle eine ausreichende
+Unterstützung erhält. Mitarbeiter*innen der Österreichischen
+Hochschüler*innenschaft an der Uni Salzburg kann keine Unterstützung gewährt
+werden.
+2) Soziale Bedürftigkeit im Sinne dieser Richtlinien liegt dann vor, wenn der oder die
+Studierende nicht bei den Eltern wohnt und wenn die monatlichen Ausgaben die
+monatlichen Einnahmen übersteigen. Der Bezug von Studienbeihilfe schließt soziale
+Bedürftigkeit im Sinne dieser Richtlinien aus, es sei denn es handelt sich um
+Studierende, die trotz eigenem Wohnsitz am Studienort die erhöhte Studienbeihilfe
+für „auswärtige Studierende“ nach dem Studienförderungsgesetz nicht erhalten.
+Außerdem ist die soziale Bedürftigkeit im Sinne dieser Richtlinien gegeben, wenn trotz
+sparsamen Lebensstil kein signifikanter Überschuss monatlich erzielt wird.
+a) Um die finanzielle Situation der Antragsteller*innen nachvollziehen zu
+können und die Einnahmen und Ausgaben zu überprüfen, müssen die
+Kontoauszüge der letzten drei Monate (gerechnet ab Zeitpunkt der
+Antragstellung) hochgeladen werden.
+3) Als Einkünfte im Sinne dieser Richtlinien gelten alle in die Haushaltskasse der/des
+Antragsteller*in und dessen/deren Partner*in und deren Kinder fließenden Gelder
+wie z.B.: Einkünfte aus Erwerbstätigkeiten, Leistungen aus dem
+Arbeitslosenversicherungsgesetz, Karenzurlaubsgeldgesetz, Studienförderungsgesetz,
+Arbeitsmarktservicegesetz und anderen Gesetzen, Pensionen, Renten,
+Unterstützungen durch Bund, Land, Gemeinden und andere Organisationen, wie
+Beihilfen (z.B.: Wohnbeihilfe od. Familienbeihilfe für Studierende und deren Kinder),
+Studienbeihilfe und sonstige Stipendien, Unterhaltszahlungen (Alimente für
+Elternteil/e oder Kind) sowie sonstige Zuwendungen von Eltern und anderen
+Verwandten.
+4) Für Ausgaben dürfen maximal folgende Beträge in Abzug gebracht werden:
+a) Für tatsächlich entstandene Kosten für Wohnen höchstens 450 Euro für
+die/den Antragsteller*in. Für die oder den im gemeinsamen Haushalt/
+Lebensgemeinschaft lebende(n) (Ehe)Partner*in und die im gemeinsamen
+Haushalt lebenden Kinder erhöht sich der für Wohnkosten festgelegte Betrag
+um jeweils 100 Euro.
+b) für zum Studium notwendige Aufwendungen, einschließlich nicht refundierter
+Studienbeiträge gegen Nachweis der Kosten von höchstens 200 Euro, ohne
+Kosten-nachweis pauschal 100 Euro,
+c) für Telefon, Rundfunk- und Fernsehgebühren sowie Haushaltsversicherung
+bis maximal 100 Euro monatlich,
+d) für Kinderbetreuung (ausgenommen Unterrichtsgeld für Privatschulen jedoch
+einschließlich Babysitter*innen-Kosten) bis maximal 275 Euro monatlich,
+e) für Krankenversicherung bis maximal 65 Euro je Studierenden monatlich,
+f) für die notwendigen Fahrten eines Studierenden am und zum Studienort der
+monatliche Betrag des günstigsten Studierendentarifs,
+g) für Lebenshaltungskosten (Essen, Bekleidung, Medikamente, Freizeit, Bücher
+etc.) dürfen monatlich nicht mehr als 350 Euro für den/die Antragsteller*in,
+250 Euro für den/die Partner*in und 250 Euro für jedes im Haushalt lebende
+Kind in Abzug gebracht werden.
+In Einzelfällen können darüber hinaus plötzlich erforderliche einmalige Ausgaben bei den
+monatlichen Ausgaben mit einem Zwölftel des Betrages angesetzt werden, wenn diese
+Ausgaben zwingend notwendig sind und durch entsprechende Belege nachgewiesen werden.
+Insgesamt dürfen die auf diese Weise errechneten Ausgaben monatlich nicht mehr als 950
+Euro für die/den Antragsteller/in und 500 Euro für die oder den im gemein- samen
+Haushalt/Lebensgemeinschaft lebende(n) (Ehe) Partner/in betragen. Dieser Betrag erhöht
+sich um 300 Euro für jedes im Haushalt lebende Kind bzw. um 400 Euro bei allein erziehenden
+Studierenden, zuzüglich um 275 Euro für nachgewiesene Kosten der Kinderbetreuung sowie
+um höchstens 200 Euro für zum Studium notwendige Aufwendungen.
+5) Ersparnisse
+a) Grundsätzlich gilt, dass für die Unterstützung aus dem Sozialstipendium,
+Ersparnisse den Rahmen von 3.000 Euro nicht übersteigen dürfen.
+b) Für Beträge darüber hinaus ist eine Begründung beizulegen (bspw.
+bevorstehende, notwendige Ausgaben, etc.).
+6) Studienerfolg
+a) Ein adäquater Studienerfolg im Sinne dieser Richtlinien liegt für Studierende
+an Universitäten, Universitäten der Künste und der Akademie der bildenden
+Künste und andere Hochschulen dann vor, wenn die oder der Studierende
+zumindest eine Teilprüfung einer Diplomprüfung oder eines Rigorosums oder
+Prüfungen im Ausmaß von 16 ECTS-Punkten oder acht Semesterstunden aus
+den letzten beiden Semestern abgelegt hat. Für Studierende mit Kindern und
+behinderte Studierende ist eine Studienleistung von mindestens acht ECTS-
+Punkten oder vier Semesterstunden ausreichend.
+b) Ein adäquater Studienerfolg im Sinne dieser Richtlinien liegt nicht vor, wenn die
+zwei- fache gesetzlich vorgesehene Studienzeit im aktuellen Studium oder
+Studienabschnitt überschritten wurde. Verzögerungsgründe wie z.B.
+Kindererziehungszeiten, Berufstätigkeit, sofern mehr als eine
+Halbbeschäftigung vorlag, Krankheit, Behinderungen, universitätsbedingte
+Verzögerungen wie z.B.: Zugangsbeschränkungen, sehr kurze
+Studienabschnitte oder andere unabwendbare Gründe können berücksichtigt
+werden, vorausgesetzt, dass in den Zeiten vor bzw. nach diesen Behinderungen
+der Studienerfolg in ausreichendem Ausmaß vorliegt.
+c) Abweichend von 1. (1) können zur Vorbereitung eines ordentlichen Studiums
+(z.B Studienberechtigungsprüfung oder Sprachkurs) auch außerordentliche
+Studierende im zweiten Semester eine Unterstützung erhalten, wenn sie aus
+dem ersten Semester Zeugnisse über Prüfungen vorlegen, die einem
+Stundenausmaß von acht Semesterwochenstunden entsprechen.
+d) Studierenden, die bereits ein Studium abgeschlossen haben, kann nur dann
+eine Unterstützung gewährt werden, wenn sie ein weiterführendes
+fachverwandtes Studium betreiben oder das Studium ihre Berufsaussichten
+wesentlich verbessert.
+e) Das nachgewiesene Arbeiten an einer Diplom- oder Masterarbeit oder einer
+Dissertation gilt als ausreichender Studienerfolg, die nachgewiesene Arbeit an
+einer Bachelorarbeit kann den zu erbringenden Leistungsnachweis um 8 ECTS
+reduzieren.
+f) Für Studierende, welche sich im 1. Semester eines Masterstudiums befinden,
+gilt der Studienerfolg des Bachelorstudiums bzw. des Bachelorzeugnisses
+selbst.
+g) Studierende, die erst ein volles Semester absolviert haben, müssen nur die
+Hälfte der oben vorgeschriebenen ECTS oder Semesterwochenstunden
+nachweisen. Diese müssen somit einen Nachweis von 8 ECTS erbringen.
+h) Von Antragssteller_innen, welche sich erst im ersten Semester befinden, wird
+kein ECTS-Nachweis eingefordert, stattdessen wird ein Nachweis der
+besuchten Lehrveranstaltungen verlangt (Screenshot oder Ähnliches auf
+welchem der Name klar ersichtlich ist).
+i) In speziellen Fällen kann in Absprache mit dem/der Referent*in für
+wirtschaftliche Angelegenheiten und der/dem
+j) Vorsitzenden der ÖH Uni Salzburg auf die Erfüllung der Vergabekriterien zum
+Studienerfolg verzichtet werden. Eine solche Entscheidung ist in den
+Unterlagen schriftlich mit einem Aktenvermerk zu begründen.
+ 
+Hier ist der zu bewertende Antrag:
+--------------------------------------------------
+SOZIALSTIPENDIUM ANTRAG (ÖH Uni Salzburg)
+Semester: WiSe 2025-2026
+
+--------------------------------------------------
+PERSÖNLICHE ANGABEN
+--------------------------------------------------
+
+Vor-/Nachname: Max Mustermann
+Geschlecht: Männlich
+Anschrift: Berlin
+E-mail: max.mustermann@gmail.com
+Geburtsdatum: 14.04.2004
+Staatsbürgerschaft: Deutsch
+
+--------------------------------------------------
+PERSÖNLICHE SITUATION
+--------------------------------------------------
+Begründung für das Sozialstipendium:
+Ich wohne seit Beginn des Studiums in einer eigenen kleinen Wohnung in Salzburg, da die Pendelzeit von meinem Elternhaus zu lang wäre. Meine Eltern können mich finanziell nur mit dem gesetzlichen Mindestunterhalt unterstützen. Da ich mich voll auf mein Studium konzentrieren möchte (Mindeststudienzeit), kann ich nebenbei nur geringfügig arbeiten. Durch die gestiegenen Energiekosten und die Miete übersteigen meine monatlichen Fixkosten aktuell meine Einnahmen.
+
+--------------------------------------------------
+MONATLICHE FINANZEN
+--------------------------------------------------
+AUSGABEN (Monatlich):
+- Wohnen (Miete + Energie): 450,00 €
+- Fahrtkosten (Öffis/Ticket): 30,00 €
+- Studienunterlagen: 20,00 €
+- Lebensmittel, Hygiene, Sonstiges: 300,00 €
+-------------------------------------
+SUMME AUSGABEN: 800,00 €
+
+EINNAHMEN (Monatlich):
+- Einkunft durch Arbeit (Geringfügig): 350,00 €
+- Unterhalt der Eltern: 200,00 €
+- Familienbeihilfe: 180,00 €
+- Entnahme aus Ersparnissen: 50,00 €
+- Studienbeihilfe: 0,00 €
+-------------------------------------
+SUMME EINNAHMEN: 780,00 €
+
+--------------------------------------------------
+STUDIENBEITRAG
+--------------------------------------------------
+Status: Ich zahle 19,70€ Studienbeitrag (ÖH Beitrag) pro Semester.
+
+--------------------------------------------------
+ANLAGEN & NACHWEISE
+--------------------------------------------------
+[x] Bestätigung des Studienerfolges (hochgeladen)
+[x] Aktuelles Studienblatt (hochgeladen)
+[x] Kontoauszüge der letzten drei Monate (hochgeladen)
+
+--------------------------------------------------
+DATENSCHUTZ & UNTERSCHRIFT
+--------------------------------------------------
+[x] Ich stimme der Verarbeitung meiner Daten zu.
+
+Unterschrift: elektronisch signiert
+Datum: 25.11.2025
+--------------------------------------------------
+
+### ERGEBNIS
+Der finale Score (0-100) beträgt:
+
+############################################################
+
+
+--- SZENARIO: MITTEL (Body_sozial_mittel.txt) ---
+----------------------------------------
+Du bist ein spezialisierter Algorithmus zur Berechnung von 'Bedürftigkeits-Scores' für das ÖH Sozialstipendium. Deine Aufgabe ist es, Anträge rein nach ihrer finanziellen DRINGLICHKEIT zu bewerten.
+
+ACHTUNG - LOGIK-INVERSION (WICHTIG!):
+- In der normalen Welt ist Geldmangel schlecht.
+- HIER GILT: Geldmangel = HOHE PUNKTEZAHL (Stipendium wird dringend benötigt).
+- Viel Geld / Überschuss = NIEDRIGE PUNKTEZAHL (Kein Stipendium nötig).
+
+DEIN RECHENWEG:
+1. Suche nach Einnahmen und Ausgaben.
+2. Berechne: Einnahmen MINUS Ausgaben.
+   -> Wenn Ergebnis NEGATIV (Verlust/Defizit) -> Score muss SEHR HOCH sein (80-100).
+   -> Wenn Ergebnis NULL oder knapp positiv -> Score MITTEL (40-70).
+   -> Wenn Ergebnis DEUTLICH POSITIV (Überschuss) -> Score NIEDRIG/ABLEHNUNG (0-20).
+3. Wenn KEINE ZAHLEN da sind: Schätze die Notlage anhand des Textes (Jammert die Person glaubhaft? -> Hoch. Wirkt es arrogant/sorglos? -> Niedrig).
+
+BEWERTUNGS-SKALA (Priorität):
+- 100 Punkte: EXISTENZBEDROHUNG (z.B. Schulden, Miete kann nicht gezahlt werden, Defizit > 300€).
+- 80 Punkte: STARKE BELASTUNG (z.B. Defizit 100-200€, 'komme kaum über die Runden').
+- 50 Punkte: KNAPP (z.B. 'Null auf Null', kommt gerade so durch).
+- 20 Punkte: KOMFORTABEL (z.B. 200€ Überschuss, Taschengeld von Eltern).
+- 0 Punkte: REICH / LUXUS (z.B. Urlaub, teures Hobby, hohes Einkommen).
+
+Gib als Output NUR die Zahl (0-100) aus. Keine Rechnung, kein Text.
+
+
+NUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):
+§ 1 Zweck der Unterstützung
+Die Hochschüler*innenschaft an der Uni Salzburg (nachfolgend ÖH Uni Salzburg genannt)
+unterstützt daher nach Maßgabe der Richtlinie und der vorhandenen Mittel die sozial
+bedürftigen Mitglieder der ÖH Uni Salzburg mit einem Sozialstipendium
+
+§ 2 Vergabekriterien
+1) Voraussetzung für die Gewährung einer Unterstützung durch die ÖH Universität
+Salzburg ist, dass die oder der Studierende Mitglied der Österreichischen
+Hochschüler*innenschaft der Uni Salzburg ist, ein außerordentliches oder ordentliches
+Studium betreibt, im Sinne dieser Richtlinien sozial bedürftig ist, einen adäquaten
+Studienerfolg nachweisen kann und von keiner anderen Stelle eine ausreichende
+Unterstützung erhält. Mitarbeiter*innen der Österreichischen
+Hochschüler*innenschaft an der Uni Salzburg kann keine Unterstützung gewährt
+werden.
+2) Soziale Bedürftigkeit im Sinne dieser Richtlinien liegt dann vor, wenn der oder die
+Studierende nicht bei den Eltern wohnt und wenn die monatlichen Ausgaben die
+monatlichen Einnahmen übersteigen. Der Bezug von Studienbeihilfe schließt soziale
+Bedürftigkeit im Sinne dieser Richtlinien aus, es sei denn es handelt sich um
+Studierende, die trotz eigenem Wohnsitz am Studienort die erhöhte Studienbeihilfe
+für „auswärtige Studierende“ nach dem Studienförderungsgesetz nicht erhalten.
+Außerdem ist die soziale Bedürftigkeit im Sinne dieser Richtlinien gegeben, wenn trotz
+sparsamen Lebensstil kein signifikanter Überschuss monatlich erzielt wird.
+a) Um die finanzielle Situation der Antragsteller*innen nachvollziehen zu
+können und die Einnahmen und Ausgaben zu überprüfen, müssen die
+Kontoauszüge der letzten drei Monate (gerechnet ab Zeitpunkt der
+Antragstellung) hochgeladen werden.
+3) Als Einkünfte im Sinne dieser Richtlinien gelten alle in die Haushaltskasse der/des
+Antragsteller*in und dessen/deren Partner*in und deren Kinder fließenden Gelder
+wie z.B.: Einkünfte aus Erwerbstätigkeiten, Leistungen aus dem
+Arbeitslosenversicherungsgesetz, Karenzurlaubsgeldgesetz, Studienförderungsgesetz,
+Arbeitsmarktservicegesetz und anderen Gesetzen, Pensionen, Renten,
+Unterstützungen durch Bund, Land, Gemeinden und andere Organisationen, wie
+Beihilfen (z.B.: Wohnbeihilfe od. Familienbeihilfe für Studierende und deren Kinder),
+Studienbeihilfe und sonstige Stipendien, Unterhaltszahlungen (Alimente für
+Elternteil/e oder Kind) sowie sonstige Zuwendungen von Eltern und anderen
+Verwandten.
+4) Für Ausgaben dürfen maximal folgende Beträge in Abzug gebracht werden:
+a) Für tatsächlich entstandene Kosten für Wohnen höchstens 450 Euro für
+die/den Antragsteller*in. Für die oder den im gemeinsamen Haushalt/
+Lebensgemeinschaft lebende(n) (Ehe)Partner*in und die im gemeinsamen
+Haushalt lebenden Kinder erhöht sich der für Wohnkosten festgelegte Betrag
+um jeweils 100 Euro.
+b) für zum Studium notwendige Aufwendungen, einschließlich nicht refundierter
+Studienbeiträge gegen Nachweis der Kosten von höchstens 200 Euro, ohne
+Kosten-nachweis pauschal 100 Euro,
+c) für Telefon, Rundfunk- und Fernsehgebühren sowie Haushaltsversicherung
+bis maximal 100 Euro monatlich,
+d) für Kinderbetreuung (ausgenommen Unterrichtsgeld für Privatschulen jedoch
+einschließlich Babysitter*innen-Kosten) bis maximal 275 Euro monatlich,
+e) für Krankenversicherung bis maximal 65 Euro je Studierenden monatlich,
+f) für die notwendigen Fahrten eines Studierenden am und zum Studienort der
+monatliche Betrag des günstigsten Studierendentarifs,
+g) für Lebenshaltungskosten (Essen, Bekleidung, Medikamente, Freizeit, Bücher
+etc.) dürfen monatlich nicht mehr als 350 Euro für den/die Antragsteller*in,
+250 Euro für den/die Partner*in und 250 Euro für jedes im Haushalt lebende
+Kind in Abzug gebracht werden.
+In Einzelfällen können darüber hinaus plötzlich erforderliche einmalige Ausgaben bei den
+monatlichen Ausgaben mit einem Zwölftel des Betrages angesetzt werden, wenn diese
+Ausgaben zwingend notwendig sind und durch entsprechende Belege nachgewiesen werden.
+Insgesamt dürfen die auf diese Weise errechneten Ausgaben monatlich nicht mehr als 950
+Euro für die/den Antragsteller/in und 500 Euro für die oder den im gemein- samen
+Haushalt/Lebensgemeinschaft lebende(n) (Ehe) Partner/in betragen. Dieser Betrag erhöht
+sich um 300 Euro für jedes im Haushalt lebende Kind bzw. um 400 Euro bei allein erziehenden
+Studierenden, zuzüglich um 275 Euro für nachgewiesene Kosten der Kinderbetreuung sowie
+um höchstens 200 Euro für zum Studium notwendige Aufwendungen.
+5) Ersparnisse
+a) Grundsätzlich gilt, dass für die Unterstützung aus dem Sozialstipendium,
+Ersparnisse den Rahmen von 3.000 Euro nicht übersteigen dürfen.
+b) Für Beträge darüber hinaus ist eine Begründung beizulegen (bspw.
+bevorstehende, notwendige Ausgaben, etc.).
+6) Studienerfolg
+a) Ein adäquater Studienerfolg im Sinne dieser Richtlinien liegt für Studierende
+an Universitäten, Universitäten der Künste und der Akademie der bildenden
+Künste und andere Hochschulen dann vor, wenn die oder der Studierende
+zumindest eine Teilprüfung einer Diplomprüfung oder eines Rigorosums oder
+Prüfungen im Ausmaß von 16 ECTS-Punkten oder acht Semesterstunden aus
+den letzten beiden Semestern abgelegt hat. Für Studierende mit Kindern und
+behinderte Studierende ist eine Studienleistung von mindestens acht ECTS-
+Punkten oder vier Semesterstunden ausreichend.
+b) Ein adäquater Studienerfolg im Sinne dieser Richtlinien liegt nicht vor, wenn die
+zwei- fache gesetzlich vorgesehene Studienzeit im aktuellen Studium oder
+Studienabschnitt überschritten wurde. Verzögerungsgründe wie z.B.
+Kindererziehungszeiten, Berufstätigkeit, sofern mehr als eine
+Halbbeschäftigung vorlag, Krankheit, Behinderungen, universitätsbedingte
+Verzögerungen wie z.B.: Zugangsbeschränkungen, sehr kurze
+Studienabschnitte oder andere unabwendbare Gründe können berücksichtigt
+werden, vorausgesetzt, dass in den Zeiten vor bzw. nach diesen Behinderungen
+der Studienerfolg in ausreichendem Ausmaß vorliegt.
+c) Abweichend von 1. (1) können zur Vorbereitung eines ordentlichen Studiums
+(z.B Studienberechtigungsprüfung oder Sprachkurs) auch außerordentliche
+Studierende im zweiten Semester eine Unterstützung erhalten, wenn sie aus
+dem ersten Semester Zeugnisse über Prüfungen vorlegen, die einem
+Stundenausmaß von acht Semesterwochenstunden entsprechen.
+d) Studierenden, die bereits ein Studium abgeschlossen haben, kann nur dann
+eine Unterstützung gewährt werden, wenn sie ein weiterführendes
+fachverwandtes Studium betreiben oder das Studium ihre Berufsaussichten
+wesentlich verbessert.
+e) Das nachgewiesene Arbeiten an einer Diplom- oder Masterarbeit oder einer
+Dissertation gilt als ausreichender Studienerfolg, die nachgewiesene Arbeit an
+einer Bachelorarbeit kann den zu erbringenden Leistungsnachweis um 8 ECTS
+reduzieren.
+f) Für Studierende, welche sich im 1. Semester eines Masterstudiums befinden,
+gilt der Studienerfolg des Bachelorstudiums bzw. des Bachelorzeugnisses
+selbst.
+g) Studierende, die erst ein volles Semester absolviert haben, müssen nur die
+Hälfte der oben vorgeschriebenen ECTS oder Semesterwochenstunden
+nachweisen. Diese müssen somit einen Nachweis von 8 ECTS erbringen.
+h) Von Antragssteller_innen, welche sich erst im ersten Semester befinden, wird
+kein ECTS-Nachweis eingefordert, stattdessen wird ein Nachweis der
+besuchten Lehrveranstaltungen verlangt (Screenshot oder Ähnliches auf
+welchem der Name klar ersichtlich ist).
+i) In speziellen Fällen kann in Absprache mit dem/der Referent*in für
+wirtschaftliche Angelegenheiten und der/dem
+j) Vorsitzenden der ÖH Uni Salzburg auf die Erfüllung der Vergabekriterien zum
+Studienerfolg verzichtet werden. Eine solche Entscheidung ist in den
+Unterlagen schriftlich mit einem Aktenvermerk zu begründen.
+ 
+Hier ist der zu bewertende Antrag:
+--------------------------------------------------
+SOZIALSTIPENDIUM ANTRAG (ÖH Uni Salzburg)
+Semester: WiSe 2025-2026
+
+--------------------------------------------------
+PERSÖNLICHE ANGABEN
+--------------------------------------------------
+
+Vor-/Nachname: Max Mustermann
+Geschlecht: Männlich
+Anschrift: Berlin
+E-mail: max.mustermann@gmail.com
+Geburtsdatum: 14.04.2004
+Staatsbürgerschaft: Deutsch
+
+--------------------------------------------------
+PERSÖNLICHE SITUATION
+--------------------------------------------------
+Begründung für das Sozialstipendium:
+Ich wohne in einer Wohngemeinschaft mit zwei anderen Studierenden. Durch einen kleinen Nebenjob und Unterstützung meiner Eltern kann ich es mir gerade so leisten, jedoch fehlt mir Geld für größere notwendige Ausgaben, wenn zum Beispiel Geräte wie mein Kühlschrank ausgetauscht werden müssen.
+
+--------------------------------------------------
+MONATLICHE FINANZEN
+--------------------------------------------------
+AUSGABEN (Monatlich):
+- Wohnen (Miete + Energie): 400,00 €
+- Fahrtkosten (Öffis/Ticket): 0,00 €
+- Studienunterlagen: 20,00 €
+- Lebensmittel, Hygiene, Sonstiges: 300,00 €
+-------------------------------------
+SUMME AUSGABEN: 720,00 €
+
+EINNAHMEN (Monatlich):
+- Einkunft durch Arbeit (Geringfügig): 250,00 €
+- Unterhalt der Eltern: 250,00 €
+- Familienbeihilfe: 180,00 €
+- Entnahme aus Ersparnissen: 50,00 €
+- Studienbeihilfe: 0,00 €
+-------------------------------------
+SUMME EINNAHMEN: 730,00 €
+
+--------------------------------------------------
+STUDIENBEITRAG
+--------------------------------------------------
+Status: Ich zahle 19,70€ Studienbeitrag (ÖH Beitrag) pro Semester.
+
+--------------------------------------------------
+ANLAGEN & NACHWEISE
+--------------------------------------------------
+[x] Bestätigung des Studienerfolges (hochgeladen)
+[x] Aktuelles Studienblatt (hochgeladen)
+[x] Kontoauszüge der letzten drei Monate (hochgeladen)
+
+--------------------------------------------------
+DATENSCHUTZ & UNTERSCHRIFT
+--------------------------------------------------
+[x] Ich stimme der Verarbeitung meiner Daten zu.
+
+Unterschrift: elektronisch signiert
+Datum: 25.11.2025
+--------------------------------------------------
+
+### ERGEBNIS
+Der finale Score (0-100) beträgt:
+
+############################################################
+
+
+--- SZENARIO: SCHLECHT (Body_sozial_schlecht.txt) ---
+----------------------------------------
+Du bist ein spezialisierter Algorithmus zur Berechnung von 'Bedürftigkeits-Scores' für das ÖH Sozialstipendium. Deine Aufgabe ist es, Anträge rein nach ihrer finanziellen DRINGLICHKEIT zu bewerten.
+
+ACHTUNG - LOGIK-INVERSION (WICHTIG!):
+- In der normalen Welt ist Geldmangel schlecht.
+- HIER GILT: Geldmangel = HOHE PUNKTEZAHL (Stipendium wird dringend benötigt).
+- Viel Geld / Überschuss = NIEDRIGE PUNKTEZAHL (Kein Stipendium nötig).
+
+DEIN RECHENWEG:
+1. Suche nach Einnahmen und Ausgaben.
+2. Berechne: Einnahmen MINUS Ausgaben.
+   -> Wenn Ergebnis NEGATIV (Verlust/Defizit) -> Score muss SEHR HOCH sein (80-100).
+   -> Wenn Ergebnis NULL oder knapp positiv -> Score MITTEL (40-70).
+   -> Wenn Ergebnis DEUTLICH POSITIV (Überschuss) -> Score NIEDRIG/ABLEHNUNG (0-20).
+3. Wenn KEINE ZAHLEN da sind: Schätze die Notlage anhand des Textes (Jammert die Person glaubhaft? -> Hoch. Wirkt es arrogant/sorglos? -> Niedrig).
+
+BEWERTUNGS-SKALA (Priorität):
+- 100 Punkte: EXISTENZBEDROHUNG (z.B. Schulden, Miete kann nicht gezahlt werden, Defizit > 300€).
+- 80 Punkte: STARKE BELASTUNG (z.B. Defizit 100-200€, 'komme kaum über die Runden').
+- 50 Punkte: KNAPP (z.B. 'Null auf Null', kommt gerade so durch).
+- 20 Punkte: KOMFORTABEL (z.B. 200€ Überschuss, Taschengeld von Eltern).
+- 0 Punkte: REICH / LUXUS (z.B. Urlaub, teures Hobby, hohes Einkommen).
+
+Gib als Output NUR die Zahl (0-100) aus. Keine Rechnung, kein Text.
+
+
+NUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):
+§ 1 Zweck der Unterstützung
+Die Hochschüler*innenschaft an der Uni Salzburg (nachfolgend ÖH Uni Salzburg genannt)
+unterstützt daher nach Maßgabe der Richtlinie und der vorhandenen Mittel die sozial
+bedürftigen Mitglieder der ÖH Uni Salzburg mit einem Sozialstipendium
+
+§ 2 Vergabekriterien
+1) Voraussetzung für die Gewährung einer Unterstützung durch die ÖH Universität
+Salzburg ist, dass die oder der Studierende Mitglied der Österreichischen
+Hochschüler*innenschaft der Uni Salzburg ist, ein außerordentliches oder ordentliches
+Studium betreibt, im Sinne dieser Richtlinien sozial bedürftig ist, einen adäquaten
+Studienerfolg nachweisen kann und von keiner anderen Stelle eine ausreichende
+Unterstützung erhält. Mitarbeiter*innen der Österreichischen
+Hochschüler*innenschaft an der Uni Salzburg kann keine Unterstützung gewährt
+werden.
+2) Soziale Bedürftigkeit im Sinne dieser Richtlinien liegt dann vor, wenn der oder die
+Studierende nicht bei den Eltern wohnt und wenn die monatlichen Ausgaben die
+monatlichen Einnahmen übersteigen. Der Bezug von Studienbeihilfe schließt soziale
+Bedürftigkeit im Sinne dieser Richtlinien aus, es sei denn es handelt sich um
+Studierende, die trotz eigenem Wohnsitz am Studienort die erhöhte Studienbeihilfe
+für „auswärtige Studierende“ nach dem Studienförderungsgesetz nicht erhalten.
+Außerdem ist die soziale Bedürftigkeit im Sinne dieser Richtlinien gegeben, wenn trotz
+sparsamen Lebensstil kein signifikanter Überschuss monatlich erzielt wird.
+a) Um die finanzielle Situation der Antragsteller*innen nachvollziehen zu
+können und die Einnahmen und Ausgaben zu überprüfen, müssen die
+Kontoauszüge der letzten drei Monate (gerechnet ab Zeitpunkt der
+Antragstellung) hochgeladen werden.
+3) Als Einkünfte im Sinne dieser Richtlinien gelten alle in die Haushaltskasse der/des
+Antragsteller*in und dessen/deren Partner*in und deren Kinder fließenden Gelder
+wie z.B.: Einkünfte aus Erwerbstätigkeiten, Leistungen aus dem
+Arbeitslosenversicherungsgesetz, Karenzurlaubsgeldgesetz, Studienförderungsgesetz,
+Arbeitsmarktservicegesetz und anderen Gesetzen, Pensionen, Renten,
+Unterstützungen durch Bund, Land, Gemeinden und andere Organisationen, wie
+Beihilfen (z.B.: Wohnbeihilfe od. Familienbeihilfe für Studierende und deren Kinder),
+Studienbeihilfe und sonstige Stipendien, Unterhaltszahlungen (Alimente für
+Elternteil/e oder Kind) sowie sonstige Zuwendungen von Eltern und anderen
+Verwandten.
+4) Für Ausgaben dürfen maximal folgende Beträge in Abzug gebracht werden:
+a) Für tatsächlich entstandene Kosten für Wohnen höchstens 450 Euro für
+die/den Antragsteller*in. Für die oder den im gemeinsamen Haushalt/
+Lebensgemeinschaft lebende(n) (Ehe)Partner*in und die im gemeinsamen
+Haushalt lebenden Kinder erhöht sich der für Wohnkosten festgelegte Betrag
+um jeweils 100 Euro.
+b) für zum Studium notwendige Aufwendungen, einschließlich nicht refundierter
+Studienbeiträge gegen Nachweis der Kosten von höchstens 200 Euro, ohne
+Kosten-nachweis pauschal 100 Euro,
+c) für Telefon, Rundfunk- und Fernsehgebühren sowie Haushaltsversicherung
+bis maximal 100 Euro monatlich,
+d) für Kinderbetreuung (ausgenommen Unterrichtsgeld für Privatschulen jedoch
+einschließlich Babysitter*innen-Kosten) bis maximal 275 Euro monatlich,
+e) für Krankenversicherung bis maximal 65 Euro je Studierenden monatlich,
+f) für die notwendigen Fahrten eines Studierenden am und zum Studienort der
+monatliche Betrag des günstigsten Studierendentarifs,
+g) für Lebenshaltungskosten (Essen, Bekleidung, Medikamente, Freizeit, Bücher
+etc.) dürfen monatlich nicht mehr als 350 Euro für den/die Antragsteller*in,
+250 Euro für den/die Partner*in und 250 Euro für jedes im Haushalt lebende
+Kind in Abzug gebracht werden.
+In Einzelfällen können darüber hinaus plötzlich erforderliche einmalige Ausgaben bei den
+monatlichen Ausgaben mit einem Zwölftel des Betrages angesetzt werden, wenn diese
+Ausgaben zwingend notwendig sind und durch entsprechende Belege nachgewiesen werden.
+Insgesamt dürfen die auf diese Weise errechneten Ausgaben monatlich nicht mehr als 950
+Euro für die/den Antragsteller/in und 500 Euro für die oder den im gemein- samen
+Haushalt/Lebensgemeinschaft lebende(n) (Ehe) Partner/in betragen. Dieser Betrag erhöht
+sich um 300 Euro für jedes im Haushalt lebende Kind bzw. um 400 Euro bei allein erziehenden
+Studierenden, zuzüglich um 275 Euro für nachgewiesene Kosten der Kinderbetreuung sowie
+um höchstens 200 Euro für zum Studium notwendige Aufwendungen.
+5) Ersparnisse
+a) Grundsätzlich gilt, dass für die Unterstützung aus dem Sozialstipendium,
+Ersparnisse den Rahmen von 3.000 Euro nicht übersteigen dürfen.
+b) Für Beträge darüber hinaus ist eine Begründung beizulegen (bspw.
+bevorstehende, notwendige Ausgaben, etc.).
+6) Studienerfolg
+a) Ein adäquater Studienerfolg im Sinne dieser Richtlinien liegt für Studierende
+an Universitäten, Universitäten der Künste und der Akademie der bildenden
+Künste und andere Hochschulen dann vor, wenn die oder der Studierende
+zumindest eine Teilprüfung einer Diplomprüfung oder eines Rigorosums oder
+Prüfungen im Ausmaß von 16 ECTS-Punkten oder acht Semesterstunden aus
+den letzten beiden Semestern abgelegt hat. Für Studierende mit Kindern und
+behinderte Studierende ist eine Studienleistung von mindestens acht ECTS-
+Punkten oder vier Semesterstunden ausreichend.
+b) Ein adäquater Studienerfolg im Sinne dieser Richtlinien liegt nicht vor, wenn die
+zwei- fache gesetzlich vorgesehene Studienzeit im aktuellen Studium oder
+Studienabschnitt überschritten wurde. Verzögerungsgründe wie z.B.
+Kindererziehungszeiten, Berufstätigkeit, sofern mehr als eine
+Halbbeschäftigung vorlag, Krankheit, Behinderungen, universitätsbedingte
+Verzögerungen wie z.B.: Zugangsbeschränkungen, sehr kurze
+Studienabschnitte oder andere unabwendbare Gründe können berücksichtigt
+werden, vorausgesetzt, dass in den Zeiten vor bzw. nach diesen Behinderungen
+der Studienerfolg in ausreichendem Ausmaß vorliegt.
+c) Abweichend von 1. (1) können zur Vorbereitung eines ordentlichen Studiums
+(z.B Studienberechtigungsprüfung oder Sprachkurs) auch außerordentliche
+Studierende im zweiten Semester eine Unterstützung erhalten, wenn sie aus
+dem ersten Semester Zeugnisse über Prüfungen vorlegen, die einem
+Stundenausmaß von acht Semesterwochenstunden entsprechen.
+d) Studierenden, die bereits ein Studium abgeschlossen haben, kann nur dann
+eine Unterstützung gewährt werden, wenn sie ein weiterführendes
+fachverwandtes Studium betreiben oder das Studium ihre Berufsaussichten
+wesentlich verbessert.
+e) Das nachgewiesene Arbeiten an einer Diplom- oder Masterarbeit oder einer
+Dissertation gilt als ausreichender Studienerfolg, die nachgewiesene Arbeit an
+einer Bachelorarbeit kann den zu erbringenden Leistungsnachweis um 8 ECTS
+reduzieren.
+f) Für Studierende, welche sich im 1. Semester eines Masterstudiums befinden,
+gilt der Studienerfolg des Bachelorstudiums bzw. des Bachelorzeugnisses
+selbst.
+g) Studierende, die erst ein volles Semester absolviert haben, müssen nur die
+Hälfte der oben vorgeschriebenen ECTS oder Semesterwochenstunden
+nachweisen. Diese müssen somit einen Nachweis von 8 ECTS erbringen.
+h) Von Antragssteller_innen, welche sich erst im ersten Semester befinden, wird
+kein ECTS-Nachweis eingefordert, stattdessen wird ein Nachweis der
+besuchten Lehrveranstaltungen verlangt (Screenshot oder Ähnliches auf
+welchem der Name klar ersichtlich ist).
+i) In speziellen Fällen kann in Absprache mit dem/der Referent*in für
+wirtschaftliche Angelegenheiten und der/dem
+j) Vorsitzenden der ÖH Uni Salzburg auf die Erfüllung der Vergabekriterien zum
+Studienerfolg verzichtet werden. Eine solche Entscheidung ist in den
+Unterlagen schriftlich mit einem Aktenvermerk zu begründen.
+ 
+Hier ist der zu bewertende Antrag:
+--------------------------------------------------
+SOZIALSTIPENDIUM ANTRAG (ÖH Uni Salzburg)
+Semester: WiSe 2025-2026
+
+--------------------------------------------------
+PERSÖNLICHE ANGABEN
+--------------------------------------------------
+
+Vor-/Nachname: Max Mustermann
+Geschlecht: Männlich
+Anschrift: Berlin
+E-mail: max.mustermann@gmail.com
+Geburtsdatum: 14.04.2004
+Staatsbürgerschaft: Deutsch
+
+--------------------------------------------------
+PERSÖNLICHE SITUATION
+--------------------------------------------------
+Begründung für das Sozialstipendium:
+Ein bisschen mehr Geld wäre super.
+--------------------------------------------------
+MONATLICHE FINANZEN
+--------------------------------------------------
+AUSGABEN (Monatlich):
+- Wohnen (Miete + Energie): 0,00 €
+- Fahrtkosten (Öffis/Ticket): 30,00 €
+- Studienunterlagen: 20,00 €
+- Lebensmittel, Hygiene, Sonstiges: 300,00 €
+-------------------------------------
+SUMME AUSGABEN: 350,00 €
+
+EINNAHMEN (Monatlich):
+- Einkunft durch Arbeit (Geringfügig): 0,00 €
+- Unterhalt der Eltern: 700,00 €
+- Familienbeihilfe: 180,00 €
+- Entnahme aus Ersparnissen: 50,00 €
+- Studienbeihilfe: 0,00 €
+-------------------------------------
+SUMME EINNAHMEN: 930,00 €
+
+--------------------------------------------------
+STUDIENBEITRAG
+--------------------------------------------------
+Status: Ich zahle 19,70€ Studienbeitrag (ÖH Beitrag) pro Semester.
+
+--------------------------------------------------
+ANLAGEN & NACHWEISE
+--------------------------------------------------
+[x] Bestätigung des Studienerfolges (hochgeladen)
+[x] Aktuelles Studienblatt (hochgeladen)
+[x] Kontoauszüge der letzten drei Monate (hochgeladen)
+
+--------------------------------------------------
+DATENSCHUTZ & UNTERSCHRIFT
+--------------------------------------------------
+[x] Ich stimme der Verarbeitung meiner Daten zu.
+
+Unterschrift: elektronisch signiert
+Datum: 25.11.2025
+--------------------------------------------------
+
+### ERGEBNIS
+Der finale Score (0-100) beträgt:
+
+############################################################
+
+============================================================
+   TEIL 2: LEISTUNGS STIPENDIUM
+============================================================
+
+
+--- SZENARIO: SUPER (Studienerfolg_super.txt) ---
+----------------------------------------
+Du bist ein spezialisierter Algorithmus zur Berechnung von 'Exzellenz-Scores' für das Leistungsstipendium. Deine Aufgabe ist es, Anträge rein nach ihrer AKADEMISCHEN LEISTUNG (Merit) zu bewerten.
+
+ACHTUNG - NOTEN-LOGIK (WICHTIG!):
+- In Österreich ist die Note 1.0 (Sehr Gut) das Beste.
+- HIER GILT: Niedriger Notenwert (nahe 1.0) = HOHE PUNKTEZAHL.
+- Hoher Notenwert (3.0, 4.0) = NIEDRIGE PUNKTEZAHL.
+- Hohe ECTS-Anzahl = HOHE PUNKTEZAHL.
+
+DEIN RECHENWEG:
+1. Suche nach dem Notendurchschnitt (GPA) und ECTS-Punkten.
+2. Bewerte die Hard Facts:
+   -> Schnitt 1.0 bis 1.4 -> Score muss SEHR HOCH sein (90-100).
+   -> Schnitt 1.5 bis 2.0 -> Score GUT/MITTEL (60-89).
+   -> Schnitt schlechter als 2.0 -> Score NIEDRIG/ABLEHNUNG (0-59).
+3. Wenn KEINE KONKRETEN NOTEN da sind: Schätze die Intelligenz und Leistung anhand des Textes (Wirkt die Person eloquent, kompetent und strebsam? -> Hoch. Viele Fehler, simpler Satzbau? -> Niedrig).
+
+BEWERTUNGS-SKALA (Priorität):
+- 90-100 Punkte: EXZELLENT (z.B. Schnitt 1.0 - 1.2, viele ECTS). Wähle z.B. 94, 98, 99.
+- 75-89 Punkte: SEHR GUT (z.B. Schnitt 1.3 - 1.7). Wähle z.B. 78, 83, 87.
+- 50-74 Punkte: DURCHSCHNITT (z.B. Schnitt 1.8 - 2.3). Wähle z.B. 55, 62, 68.
+- 0-49 Punkte: UNTERDURCHSCHNITT (z.B. Schnitt > 2.4 oder keine Leistung erkennbar). Wähle z.B. 12, 35, 42.
+
+Gib als Output NUR die Zahl (0-100) aus. Keine Rechnung, kein Text.
+
+
+NUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):
+2. Allgemeine Voraussetzungen:
+a) Einhaltung der Anspruchsdauer (gesetzliche Mindeststudiendauer und ein Toleranzsemester pro Studium
+bzw. pro Abschnitt; § 18 StudFG) unter Berücksichtigung allfälliger wichtiger Gründe (§ 19 StudFG);
+b) Notendurchschnitt der zur Beurteilung herangezogenen Prüfungen bzw. wissenschaftlichen Arbeiten
+nicht schlechter als 2,00;
+c) österreichische Staatsbürgerschaft oder Gleichstellung im Sinne des § 4 StudFG;
+d) Zulassung als ordentliche*r Hörer*in im Leistungszeitraum;
+e) Erfüllung der besonderen Ausschreibebedingungen (siehe Punkt 3).
+3. Besondere Ausschreibebedingungen:
+a) Es zählen nur die im Studienjahr 2024/25 (das ist zwischen dem 01.10.2024 und dem 30.09.2025)
+positiv abgelegten Prüfungen bzw. approbierten wissenschaftlichen Arbeiten. Einzureichen sind nur
+Prüfungen, die für den Abschluss des Studiums oder Studienabschnittes erforderlich sind.
+b) Anerkannte Prüfungen: Bei auswärtig abgelegten Prüfungen muss das Datum der Beurteilung im
+Leistungszeitraum liegen. Interne Anerkennungen werden nicht berücksichtigt.
+c) Bachelorstudien: 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00
+d) Masterstudien:
+Variante a) 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00.
+Variante b) 50 ECTS inkl. Masterarbeit und Masterprüfung: Masterarbeit: Note „Sehr gut“ +
+Masterprüfung: Note „Sehr gut“ oder „Gut“; ergänzend auf 50 ECTS sind
+Lehrveranstaltungs-/Fachprüfungen mit einem ND ≤ 2,00 nachzuweisen.
+Variante c) 50 ECTS Lehrveranstaltungs-/Fachprüfungen aus Bachelor- und konsekutivem
+Masterstudium, wenn das Masterstudium an das Bachelorstudium innerhalb des
+Leistungszeitraums angeschlossen wird: ND ≤ 2,00
+e) Doktoratsstudien: Dissertation: Note „Sehr gut“ + Dissertationsverteidigung: Note „Sehr gut“ oder
+„Gut“
+f) Diplomstudium Rechtswissenschaften:
+Variante a) 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00
+Variante b) 30 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00 + 20 ECTS Diplomarbeit: Note
+„Sehr gut“
+MB Studienjahr 2024/2025 | 21. August 2025 | 101. Stück Seite 3
+g) Diplomstudium Katholische Fachtheologie:
+Variante a) 50 ECTS Lehrveranstaltungsprüfungen: ND ≤ 2,00
+Variante b) 21 ECTS Lehrveranstaltungsprüfungen: ND ≤ 2,00 + 5 ECTS Diplomprüfung: Note „Sehr
+gut“ oder „Gut“ + 24 ECTS Diplomarbeit: Note „Sehr gut“
+(ND = Notendurchschnitt, nach ECTS gewichtet)
+ 
+Hier ist der zu bewertende Antrag:
+--------------------------------------------------
+BEWERBUNG UM EIN LEISTUNGSSTIPENDIUM im Studienjahr 2024/2025
+Vor-/Nachname: Max Mustermann
+Geschlecht: Männlich
+Studienrichtung: Artificial Intelligence, Studienkennzahl: UD 033 536
+Anschrift: Berlin
+E-mail: max.mustermann@gmail.com
+Geburtsdatum: 14.04.2004
+Staatsbürgerschaft: Deutsch
+--- ANTRAG ---
+Hiermit beantrage ich ein Leistungsstipendium für:
+[X] das Bachelorstudium
+[ ] das Masterstudium
+[ ] das Diplomstudium
+[ ] das Doktoratsstudium
+
+--- ANLAGEN ---
+Entsprechend den Ausschreibungsrichtlinien liegen meinem Antrag folgende Unterlagen bei:
+[X] aktuelles Studienblatt
+[X] Studienerfolgsnachweis (ohne Anerkennungen) der betreffenden Studienrichtung
+[ ] Anerkennungsbescheide (nicht zutreffend)
+[X] Nachweis über Staatsbürgerschaft (entfällt bei EU-Bürger*innen)
+
+Ort, Datum: Salzburg, 31.10.2025
+Unterschrift:
+
+Max Mustermann (elektronisch signiert
+--- STUDIENERFOLGSNACHWEIS ---
+"Algorithmen und Datenstrukturen; PS","datum": "28.06.2025", "note": 1, "ects": 4.0
+"Algorithmen und Datenstrukturen; VO","datum": "10.07.2025", "note": 1, "ects": 4.0
+"Analysis I; UE",              "datum": "30.01.2025", "note": 1, "ects": 3.0
+"Analysis I; VO",              "datum": "08.02.2025", "note": 1, "ects": 5.0
+"Analysis IIIa; UE",           "datum": "12.12.2024", "note": 1, "ects": 1.5
+"Analysis IIIa; VO",           "datum": "19.12.2024", "note": 1, "ects": 2.5
+"Applied AI (in Python); UV",  "datum": "13.02.2025", "note": 1, "ects": 3.0
+"Applied AI (in R); UV",       "datum": "27.06.2025", "note": 1, "ects": 3.0
+"Datenbanken I; PS",           "datum": "30.06.2025", "note": 1, "ects": 2.0
+"Datenbanken I; VO",           "datum": "24.06.2025", "note": 1, "ects": 2.0
+"Grundlagen der HCI; VO",      "datum": "04.02.2025", "note": 1, "ects": 2.0
+"HCI Übungen; UV",             "datum": "31.01.2025", "note": 1, "ects": 2.0
+"Intelligent Interfaces; UV",  "datum": "30.09.2025", "note": 1, "ects": 3.0
+"Lineare Algebra I; VO",       "datum": "22.07.2025", "note": 1, "ects": 4.0
+"Lineare Algebra II; UE",      "datum": "30.01.2025", "note": 1, "ects": 2.0
+"Machine Learning; PS",        "datum": "10.02.2025", "note": 1, "ects": 4.0
+"Machine Learning; VO",        "datum": "07.02.2025", "note": 1, "ects": 5.0
+"Optimization for AI; UV",     "datum": "30.01.2025", "note": 1, "ects": 3.0
+"Reinforcement Learning; UE",  "datum": "24.07.2025", "note": 1, "ects": 2.5
+"Responsible HCI; VU",         "datum": "29.07.2025", "note": 1, "ects": 2.0
+"Wahrscheinlichkeitsrechnung UE", "datum": "26.06.2025", "note": 1, "ects": 2.0
+"Wahrscheinlichkeitsrechnung VO", "datum": "24.06.2025", "note": 1, "ects": 4.0
+
+Studium: Bachelorstudium; Artificial Intelligence (als ordentliche*r Studierende*r)
+ECTS-Credits: 65.5
+NAME der*des Studierenden:
+Max Mustermann
+--------------------------------------------------
+
+### ERGEBNIS
+Der finale Score (0-100) beträgt:
+
+############################################################
+
+
+--- SZENARIO: MITTEL (Studienerfolg_mittel.txt) ---
+----------------------------------------
+Du bist ein spezialisierter Algorithmus zur Berechnung von 'Exzellenz-Scores' für das Leistungsstipendium. Deine Aufgabe ist es, Anträge rein nach ihrer AKADEMISCHEN LEISTUNG (Merit) zu bewerten.
+
+ACHTUNG - NOTEN-LOGIK (WICHTIG!):
+- In Österreich ist die Note 1.0 (Sehr Gut) das Beste.
+- HIER GILT: Niedriger Notenwert (nahe 1.0) = HOHE PUNKTEZAHL.
+- Hoher Notenwert (3.0, 4.0) = NIEDRIGE PUNKTEZAHL.
+- Hohe ECTS-Anzahl = HOHE PUNKTEZAHL.
+
+DEIN RECHENWEG:
+1. Suche nach dem Notendurchschnitt (GPA) und ECTS-Punkten.
+2. Bewerte die Hard Facts:
+   -> Schnitt 1.0 bis 1.4 -> Score muss SEHR HOCH sein (90-100).
+   -> Schnitt 1.5 bis 2.0 -> Score GUT/MITTEL (60-89).
+   -> Schnitt schlechter als 2.0 -> Score NIEDRIG/ABLEHNUNG (0-59).
+3. Wenn KEINE KONKRETEN NOTEN da sind: Schätze die Intelligenz und Leistung anhand des Textes (Wirkt die Person eloquent, kompetent und strebsam? -> Hoch. Viele Fehler, simpler Satzbau? -> Niedrig).
+
+BEWERTUNGS-SKALA (Priorität):
+- 90-100 Punkte: EXZELLENT (z.B. Schnitt 1.0 - 1.2, viele ECTS). Wähle z.B. 94, 98, 99.
+- 75-89 Punkte: SEHR GUT (z.B. Schnitt 1.3 - 1.7). Wähle z.B. 78, 83, 87.
+- 50-74 Punkte: DURCHSCHNITT (z.B. Schnitt 1.8 - 2.3). Wähle z.B. 55, 62, 68.
+- 0-49 Punkte: UNTERDURCHSCHNITT (z.B. Schnitt > 2.4 oder keine Leistung erkennbar). Wähle z.B. 12, 35, 42.
+
+Gib als Output NUR die Zahl (0-100) aus. Keine Rechnung, kein Text.
+
+
+NUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):
+2. Allgemeine Voraussetzungen:
+a) Einhaltung der Anspruchsdauer (gesetzliche Mindeststudiendauer und ein Toleranzsemester pro Studium
+bzw. pro Abschnitt; § 18 StudFG) unter Berücksichtigung allfälliger wichtiger Gründe (§ 19 StudFG);
+b) Notendurchschnitt der zur Beurteilung herangezogenen Prüfungen bzw. wissenschaftlichen Arbeiten
+nicht schlechter als 2,00;
+c) österreichische Staatsbürgerschaft oder Gleichstellung im Sinne des § 4 StudFG;
+d) Zulassung als ordentliche*r Hörer*in im Leistungszeitraum;
+e) Erfüllung der besonderen Ausschreibebedingungen (siehe Punkt 3).
+3. Besondere Ausschreibebedingungen:
+a) Es zählen nur die im Studienjahr 2024/25 (das ist zwischen dem 01.10.2024 und dem 30.09.2025)
+positiv abgelegten Prüfungen bzw. approbierten wissenschaftlichen Arbeiten. Einzureichen sind nur
+Prüfungen, die für den Abschluss des Studiums oder Studienabschnittes erforderlich sind.
+b) Anerkannte Prüfungen: Bei auswärtig abgelegten Prüfungen muss das Datum der Beurteilung im
+Leistungszeitraum liegen. Interne Anerkennungen werden nicht berücksichtigt.
+c) Bachelorstudien: 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00
+d) Masterstudien:
+Variante a) 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00.
+Variante b) 50 ECTS inkl. Masterarbeit und Masterprüfung: Masterarbeit: Note „Sehr gut“ +
+Masterprüfung: Note „Sehr gut“ oder „Gut“; ergänzend auf 50 ECTS sind
+Lehrveranstaltungs-/Fachprüfungen mit einem ND ≤ 2,00 nachzuweisen.
+Variante c) 50 ECTS Lehrveranstaltungs-/Fachprüfungen aus Bachelor- und konsekutivem
+Masterstudium, wenn das Masterstudium an das Bachelorstudium innerhalb des
+Leistungszeitraums angeschlossen wird: ND ≤ 2,00
+e) Doktoratsstudien: Dissertation: Note „Sehr gut“ + Dissertationsverteidigung: Note „Sehr gut“ oder
+„Gut“
+f) Diplomstudium Rechtswissenschaften:
+Variante a) 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00
+Variante b) 30 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00 + 20 ECTS Diplomarbeit: Note
+„Sehr gut“
+MB Studienjahr 2024/2025 | 21. August 2025 | 101. Stück Seite 3
+g) Diplomstudium Katholische Fachtheologie:
+Variante a) 50 ECTS Lehrveranstaltungsprüfungen: ND ≤ 2,00
+Variante b) 21 ECTS Lehrveranstaltungsprüfungen: ND ≤ 2,00 + 5 ECTS Diplomprüfung: Note „Sehr
+gut“ oder „Gut“ + 24 ECTS Diplomarbeit: Note „Sehr gut“
+(ND = Notendurchschnitt, nach ECTS gewichtet)
+ 
+Hier ist der zu bewertende Antrag:
+--------------------------------------------------
+BEWERBUNG UM EIN LEISTUNGSSTIPENDIUM im Studienjahr 2024/2025
+Vor-/Nachname: Max Mustermann
+Geschlecht: Männlich
+Studienrichtung: Artificial Intelligence, Studienkennzahl: UD 033 536
+Anschrift: Berlin
+E-mail: max.mustermann@gmail.com
+Geburtsdatum: 14.04.2004
+Staatsbürgerschaft: Deutsch
+--- ANTRAG ---
+Hiermit beantrage ich ein Leistungsstipendium für:
+[X] das Bachelorstudium
+[ ] das Masterstudium
+[ ] das Diplomstudium
+[ ] das Doktoratsstudium
+
+--- ANLAGEN ---
+Entsprechend den Ausschreibungsrichtlinien liegen meinem Antrag folgende Unterlagen bei:
+[X] aktuelles Studienblatt
+[X] Studienerfolgsnachweis (ohne Anerkennungen) der betreffenden Studienrichtung
+[ ] Anerkennungsbescheide (nicht zutreffend)
+[X] Nachweis über Staatsbürgerschaft (entfällt bei EU-Bürger*innen)
+
+Ort, Datum: Salzburg, 31.10.2025
+Unterschrift:
+
+Max Mustermann (elektronisch signiert
+--- STUDIENERFOLGSNACHWEIS ---
+"Analysis IIIa; UE",           "datum": "12.12.2024", "note": 2, "ects": 1.5
+"Analysis IIIa; VO",           "datum": "19.12.2024", "note": 4, "ects": 2.5
+"Applied AI (in Python); UV",  "datum": "13.02.2025", "note": 3, "ects": 3.0
+"Applied AI (in R); UV",       "datum": "27.06.2025", "note": 1, "ects": 3.0
+"Datenbanken I; PS",           "datum": "30.06.2025", "note": 1, "ects": 2.0
+"Datenbanken I; VO",           "datum": "24.06.2025", "note": 3, "ects": 2.0
+"Grundlagen der HCI; VO",      "datum": "04.02.2025", "note": 2, "ects": 2.0
+"HCI Übungen; UV",             "datum": "31.01.2025", "note": 2, "ects": 2.0
+"Intelligent Interfaces; UV",  "datum": "30.09.2025", "note": 3, "ects": 3.0
+"Lineare Algebra II; UE",      "datum": "30.01.2025", "note": 4, "ects": 2.0
+"Machine Learning; PS",        "datum": "10.02.2025", "note": 1, "ects": 4.0
+"Machine Learning; VO",        "datum": "07.02.2025", "note": 3, "ects": 5.0
+"Optimization for AI; UV",     "datum": "30.01.2025", "note": 1, "ects": 3.0
+"Reinforcement Learning; UE",  "datum": "24.07.2025", "note": 3, "ects": 2.5
+"Responsible HCI; VU",         "datum": "29.07.2025", "note": 2, "ects": 2.0
+"Wahrscheinlichkeitsrechnung UE", "datum": "26.06.2025", "note": 3, "ects": 2.0
+"Wahrscheinlichkeitsrechnung VO", "datum": "24.06.2025", "note": 3, "ects": 4.0
+
+Studium: Bachelorstudium; Artificial Intelligence (als ordentliche*r Studierende*r)
+ECTS-Credits: 45.5
+NAME der*des Studierenden:
+Max Mustermann
+--------------------------------------------------
+
+### ERGEBNIS
+Der finale Score (0-100) beträgt:
+
+############################################################
+
+
+--- SZENARIO: SCHLECHT (Studienerfolg_schlecht.txt) ---
+----------------------------------------
+Du bist ein spezialisierter Algorithmus zur Berechnung von 'Exzellenz-Scores' für das Leistungsstipendium. Deine Aufgabe ist es, Anträge rein nach ihrer AKADEMISCHEN LEISTUNG (Merit) zu bewerten.
+
+ACHTUNG - NOTEN-LOGIK (WICHTIG!):
+- In Österreich ist die Note 1.0 (Sehr Gut) das Beste.
+- HIER GILT: Niedriger Notenwert (nahe 1.0) = HOHE PUNKTEZAHL.
+- Hoher Notenwert (3.0, 4.0) = NIEDRIGE PUNKTEZAHL.
+- Hohe ECTS-Anzahl = HOHE PUNKTEZAHL.
+
+DEIN RECHENWEG:
+1. Suche nach dem Notendurchschnitt (GPA) und ECTS-Punkten.
+2. Bewerte die Hard Facts:
+   -> Schnitt 1.0 bis 1.4 -> Score muss SEHR HOCH sein (90-100).
+   -> Schnitt 1.5 bis 2.0 -> Score GUT/MITTEL (60-89).
+   -> Schnitt schlechter als 2.0 -> Score NIEDRIG/ABLEHNUNG (0-59).
+3. Wenn KEINE KONKRETEN NOTEN da sind: Schätze die Intelligenz und Leistung anhand des Textes (Wirkt die Person eloquent, kompetent und strebsam? -> Hoch. Viele Fehler, simpler Satzbau? -> Niedrig).
+
+BEWERTUNGS-SKALA (Priorität):
+- 90-100 Punkte: EXZELLENT (z.B. Schnitt 1.0 - 1.2, viele ECTS). Wähle z.B. 94, 98, 99.
+- 75-89 Punkte: SEHR GUT (z.B. Schnitt 1.3 - 1.7). Wähle z.B. 78, 83, 87.
+- 50-74 Punkte: DURCHSCHNITT (z.B. Schnitt 1.8 - 2.3). Wähle z.B. 55, 62, 68.
+- 0-49 Punkte: UNTERDURCHSCHNITT (z.B. Schnitt > 2.4 oder keine Leistung erkennbar). Wähle z.B. 12, 35, 42.
+
+Gib als Output NUR die Zahl (0-100) aus. Keine Rechnung, kein Text.
+
+
+NUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):
+2. Allgemeine Voraussetzungen:
+a) Einhaltung der Anspruchsdauer (gesetzliche Mindeststudiendauer und ein Toleranzsemester pro Studium
+bzw. pro Abschnitt; § 18 StudFG) unter Berücksichtigung allfälliger wichtiger Gründe (§ 19 StudFG);
+b) Notendurchschnitt der zur Beurteilung herangezogenen Prüfungen bzw. wissenschaftlichen Arbeiten
+nicht schlechter als 2,00;
+c) österreichische Staatsbürgerschaft oder Gleichstellung im Sinne des § 4 StudFG;
+d) Zulassung als ordentliche*r Hörer*in im Leistungszeitraum;
+e) Erfüllung der besonderen Ausschreibebedingungen (siehe Punkt 3).
+3. Besondere Ausschreibebedingungen:
+a) Es zählen nur die im Studienjahr 2024/25 (das ist zwischen dem 01.10.2024 und dem 30.09.2025)
+positiv abgelegten Prüfungen bzw. approbierten wissenschaftlichen Arbeiten. Einzureichen sind nur
+Prüfungen, die für den Abschluss des Studiums oder Studienabschnittes erforderlich sind.
+b) Anerkannte Prüfungen: Bei auswärtig abgelegten Prüfungen muss das Datum der Beurteilung im
+Leistungszeitraum liegen. Interne Anerkennungen werden nicht berücksichtigt.
+c) Bachelorstudien: 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00
+d) Masterstudien:
+Variante a) 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00.
+Variante b) 50 ECTS inkl. Masterarbeit und Masterprüfung: Masterarbeit: Note „Sehr gut“ +
+Masterprüfung: Note „Sehr gut“ oder „Gut“; ergänzend auf 50 ECTS sind
+Lehrveranstaltungs-/Fachprüfungen mit einem ND ≤ 2,00 nachzuweisen.
+Variante c) 50 ECTS Lehrveranstaltungs-/Fachprüfungen aus Bachelor- und konsekutivem
+Masterstudium, wenn das Masterstudium an das Bachelorstudium innerhalb des
+Leistungszeitraums angeschlossen wird: ND ≤ 2,00
+e) Doktoratsstudien: Dissertation: Note „Sehr gut“ + Dissertationsverteidigung: Note „Sehr gut“ oder
+„Gut“
+f) Diplomstudium Rechtswissenschaften:
+Variante a) 50 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00
+Variante b) 30 ECTS Lehrveranstaltungs-/Fachprüfungen: ND ≤ 2,00 + 20 ECTS Diplomarbeit: Note
+„Sehr gut“
+MB Studienjahr 2024/2025 | 21. August 2025 | 101. Stück Seite 3
+g) Diplomstudium Katholische Fachtheologie:
+Variante a) 50 ECTS Lehrveranstaltungsprüfungen: ND ≤ 2,00
+Variante b) 21 ECTS Lehrveranstaltungsprüfungen: ND ≤ 2,00 + 5 ECTS Diplomprüfung: Note „Sehr
+gut“ oder „Gut“ + 24 ECTS Diplomarbeit: Note „Sehr gut“
+(ND = Notendurchschnitt, nach ECTS gewichtet)
+ 
+Hier ist der zu bewertende Antrag:
+--------------------------------------------------
+BEWERBUNG UM EIN LEISTUNGSSTIPENDIUM im Studienjahr 2024/2025
+Vor-/Nachname: Max Mustermann
+Geschlecht: Männlich
+Studienrichtung: Artificial Intelligence, Studienkennzahl: UD 033 536
+Anschrift: Berlin
+E-mail: max.mustermann@gmail.com
+Geburtsdatum: 14.04.2004
+Staatsbürgerschaft: Deutsch
+--- ANTRAG ---
+Hiermit beantrage ich ein Leistungsstipendium für:
+[X] das Bachelorstudium
+[ ] das Masterstudium
+[ ] das Diplomstudium
+[ ] das Doktoratsstudium
+
+--- ANLAGEN ---
+Entsprechend den Ausschreibungsrichtlinien liegen meinem Antrag folgende Unterlagen bei:
+[X] aktuelles Studienblatt
+[X] Studienerfolgsnachweis (ohne Anerkennungen) der betreffenden Studienrichtung
+[ ] Anerkennungsbescheide (nicht zutreffend)
+[X] Nachweis über Staatsbürgerschaft (entfällt bei EU-Bürger*innen)
+
+Ort, Datum: Salzburg, 31.10.2025
+Unterschrift:
+
+Max Mustermann (elektronisch signiert
+--- STUDIENERFOLGSNACHWEIS ---
+"Analysis IIIa; UE",           "datum": "12.12.2024", "note": 4, "ects": 1.5
+"Analysis IIIa; VO",           "datum": "19.12.2024", "note": 4, "ects": 2.5
+"Applied AI (in Python); UV",  "datum": "13.02.2025", "note": 3, "ects": 3.0
+"Applied AI (in R); UV",       "datum": "27.06.2025", "note": 4, "ects": 3.0
+"Datenbanken I; PS",           "datum": "30.06.2025", "note": 3, "ects": 2.0
+"Datenbanken I; VO",           "datum": "24.06.2025", "note": 3, "ects": 2.0
+"Grundlagen der HCI; VO",      "datum": "04.02.2025", "note": 2, "ects": 2.0
+"HCI Übungen; UV",             "datum": "31.01.2025", "note": 4, "ects": 2.0
+"Intelligent Interfaces; UV",  "datum": "30.09.2025", "note": 3, "ects": 3.0
+"Lineare Algebra II; UE",      "datum": "30.01.2025", "note": 4, "ects": 2.0
+
+
+Studium: Bachelorstudium; Artificial Intelligence (als ordentliche*r Studierende*r)
+ECTS-Credits: 23
+NAME der*des Studierenden:
+Max Mustermann
+--------------------------------------------------
+
+### ERGEBNIS
+Der finale Score (0-100) beträgt:
+
+############################################################
+
