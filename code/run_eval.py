@@ -30,7 +30,7 @@ def load_list_from_file(filepath):
 def main():
     # 1. Setup
     model_id = HF_MODELS[0]
-    base_path = r"C:\Users\gabsu\PycharmProjects\Biased-LLM-s"
+    base_path = r"C:\Users\josef\Documents\Uni\AIW"
     output_file = os.path.join(base_path, "bias_full_permutation_results.csv")  # Neuer Dateiname
 
     print(f"--- BIAS FULL PERMUTATION TEST ---")
