@@ -9,7 +9,7 @@
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{float} % WICHTIG FÜR [H] PLATZIERUNG
+\usepackage{float}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
@@ -26,13 +26,13 @@
     Salzburg, Austria \\
     josef.bichler@stud.plus.ac.at}
     \and
-    \IEEEauthorblockN{Gabriel Suess}
+    \IEEEauthorblockN{Gabriel Süß}
     \IEEEauthorblockA{\textit{Dept. of Artificial Intelligence} \\
     \textit{University of Salzburg (PLUS)}\\
     Salzburg, Austria \\
     gabriel.suess@stud.plus.ac.at}
     \and
-    \IEEEauthorblockN{Nicolas Buergler}
+    \IEEEauthorblockN{Nicolas Bürgler}
     \IEEEauthorblockA{\textit{Dept. of Artificial Intelligence} \\
     \textit{University of Salzburg (PLUS)}\\
     Salzburg, Austria \\
@@ -63,15 +63,15 @@ When such models are applied to high-stakes decisions like scholarship allocatio
 
 \section{Related Work}
 
-Bias in Large Language Models is a well-known problem that has been categorized in various ways. Guo et al. (2024) provide a comprehensive taxonomy of these biases, distinguishing between intrinsic biases rooted in training data and extrinsic biases that manifest in downstream tasks \cite{b7}. This distinction is crucial, as even technically robust models can produce discriminatory outcomes when applied to high-stakes decision-making scenarios. For instance, Ayoub et al. (2023) demonstrated through random sampling analysis that LLMs exhibit inherent biases in critical medical decision-making, favoring patients based on demographic attributes rather than medical necessity \cite{b8}.
+Bias in Large Language Models is a well-known problem that has been categorized in various ways. Guo et al. (2024) provide a comprehensive taxonomy of these biases, distinguishing between intrinsic biases rooted in training data and extrinsic biases that manifest in downstream tasks \cite{b2}. This distinction is crucial, as even technically robust models can produce discriminatory outcomes when applied to high-stakes decision-making scenarios. For instance, Ayoub et al. (2023) demonstrated through random sampling analysis that LLMs exhibit inherent biases in critical medical decision-making, favoring patients based on demographic attributes rather than medical necessity \cite{b3}.
 
-In the specific domain of recruitment and candidate evaluation, these biases become particularly pronounced. Rao et al. (2025) highlighted the existence of "invisible filters" in LLM-based hiring, showing that cultural bias significantly impacts the evaluation of job interviews, often disadvantaging candidates from non-Western backgrounds \cite{b9}. Similarly, Wilson and Caliskan (2024) audited Massive Text Embedding (MTE) models used for resume screening and found severe intersectional biases, where White-associated names were favored in 85.1\% of cases, while Black males faced disadvantages in nearly all simulations \cite{b4}.
+In the specific domain of recruitment and candidate evaluation, these biases become particularly pronounced. Rao et al. (2025) highlighted the existence of "invisible filters" in LLM-based hiring, showing that cultural bias significantly impacts the evaluation of job interviews, often disadvantaging candidates from non-Western backgrounds \cite{b4}. Similarly, Wilson and Caliskan (2024) audited Massive Text Embedding (MTE) models used for resume screening and found severe intersectional biases, where White-associated names were favored in 85.1\% of cases, while Black males faced disadvantages in nearly all simulations \cite{b5}.
 
 Most relevant to our generative approach is the work of Iso et al. (2025), who evaluated bias in job-resume matching across models like Llama and Mistral. They observed that while modern models have reduced explicit gender and racial biases compared to earlier iterations, implicit biases—particularly regarding educational background—persist \cite{b6}.
 We build on this by looking at the Austrian scholarship system to see if modern models are truly fair or if they still harbor deeper biases when judging financial need and grades.
 
 
-\section{Methodology & Evolution}
+\section{Methodology \& Evolution}
 
 Our experimental design evolved through iterative testing of the Austrian funding landscape.
 
@@ -91,17 +91,17 @@ We inject variables into these templates to create a high-dimensional search spa
 \end{equation}
 This allows us to test if a specific combination (e.g., "Turkish-sounding Name, Rural Location") triggers a different score than the baseline "Austrian Name, Urban Location," despite identical grades.
 
-\subsection{Data Integrity & Name Selection}
+\subsection{Data Integrity \& Name Selection}
 To avoid introducing "Researcher Bias" into the experiment (e.g., by cherry-picking names), we strictly utilized external statistical data for name selection. The list of names for each demographic group (DACH, Turkish, Slavic, etc.) was derived from public census data, insurance statistics, and sociological surveys indicating the most common first and last names in the respective regions. This ensures that the names used are representative of real-world populations rather than stereotypical constructs.
 
 \subsection{Model Landscape}
 We verify results across different architectures to ensure findings are not artifacts of a single model's training data. Our test set includes the \textbf{Meta Llama Family} (Llama-2 7B vs. Llama-3 3B/8B) as well as \textbf{Mistral}, \textbf{Qwen}, and \textbf{Phi}.
 
-\section{Technical Implementation & Roadblocks}
+\section{Technical Implementation \& Roadblocks}
 
 Developing a robust automated evaluator on local hardware proved challenging.
 
-\subsection{Hardware Constraints & Quantization}
+\subsection{Hardware Constraints \& Quantization}
 A major roadblock was the memory requirement. Our setup is constrained to consumer-grade hardware with 12GB VRAM. Running \texttt{Llama-3-8B} in full precision requires approx. 16GB VRAM. We integrated \texttt{bitsandbytes} to utilize 4-bit Quantization (NF4), allowing us to run 7B and 8B models efficiently locally.
 
 \subsection{The "Apparent Fairness" Paradox}
@@ -109,7 +109,7 @@ A surprising finding was that newer models (like Llama-3) initially seemed "bias
 This is likely due to extensive Reinforcement Learning from Human Feedback (RLHF). To counter this, we introduced the \textbf{"Borderline Scenario"}. By creating an application that is riddled with minor errors and ambiguity, we force the model to make a subjective choice, which is where we expect implicit biases to show up.
 
 
-\section{Current Analysis & Preliminary Results}
+\section{Current Analysis \& Preliminary Results}
 
 We are currently conducting the full permutation runs. For this preliminary phase, we prioritized the variables \textbf{Name} and \textbf{Location}. This decision is grounded in the data structure of the Austrian \textit{ÖH Sozialstipendium}, where residency (Location) and identity markers (Name) are the primary required inputs, rendering explicit nationality fields less impactful for this specific use case.
 
@@ -134,11 +134,11 @@ PLUS & Leistung & Objective GPA (Control) \\
 \end{table}
 
 \subsection{Merit Scholarship Analysis (Leistungsstipendium)}
-Our first detailed analysis compares \textbf{Phi-3.5-mini-instruct} and \textbf{Qwen2.5-3B-Instruct} on the merit-based scholarship. Figure \ref{fig1} illustrates the "Average Suitability" (mean score) awarded by both models across three academic performance tiers: "Excellent", "Average", and "Poor".
+Our first detailed analysis compares \textbf{Phi-3.5-mini-instruct} and \textbf{Qwen2.5-3B-Instruct} on the merit-based scholarship. Fig.~\ref{fig1} illustrates the "Average Suitability" (mean score) awarded by both models across three academic performance tiers: "Excellent", "Average", and "Poor".
 The analysis permutes names across five distinct demographic groups: \textbf{Austrian, Croatian, Japanese, Turkish, and US American}.
 \begin{itemize}
     \item \textbf{Ranking Consistency:} Both models correctly preserve the hierarchy of academic merit (Excellent $>$ Average $>$ Poor).
-    \item \textbf{Variance Analysis:} The black error bars in Figure \ref{fig1} indicate the standard deviation within each demographic group. While "Excellent" candidates show minimal variance, Phi-3.5 exhibits noticeable fluctuations in the "Poor" category, suggesting less stability in decision-making when the application quality decreases.
+    \item \textbf{Variance Analysis:} The black error bars in Fig.~\ref{fig1} indicate the standard deviation within each demographic group. While "Excellent" candidates show minimal variance, Phi-3.5 exhibits noticeable fluctuations in the "Poor" category, suggesting less stability in decision-making when the application quality decreases.
 \end{itemize}
 
 % FIGURE 1 NACH DEM TEXT, MIT [H] GEZWUNGEN
@@ -149,7 +149,7 @@ The analysis permutes names across five distinct demographic groups: \textbf{Aus
 \end{figure}
 
 \subsection{Social Scholarship Analysis (Sozialstipendium)}
-For the needs-based social scholarship, we isolated the \textbf{Phi-3.5-mini-instruct} model to investigate its robustness against ambiguity (Figure \ref{fig2}).
+For the needs-based social scholarship, we isolated the \textbf{Phi-3.5-mini-instruct} model to investigate its robustness against ambiguity (Figure~\ref{fig2}).
 We evaluated three application bodies: "Good" (clear need), "Bad" (no need), and "Middle" (ambiguous financial data). The "Middle" scenario serves as a stress test, containing estimated costs rather than verified proofs.
 Preliminary results suggest that while Phi-3.5 handles clear cases (Good/Bad) consistently, the "Middle" scenario triggers increased scoring variance. This supports our idea that bias is more likely to appear when the model has to interpret missing or unclear information in the text.
 
@@ -170,11 +170,11 @@ We thank the course instructors for their guidance. We extend special gratitude 
 
 \begin{thebibliography}{00}
 \bibitem{b1} D. Guilbeault, S. Delecourt, and B. S. Desikan, "Age and gender distortion in online media and large language models," Nature, vol. 646, pp. 1129-1137, Oct. 2024.
-\bibitem{b4} K. Wilson and A. Caliskan, "Gender, Race, and Intersectional Bias in Resume Screening via Language Model Retrieval," in Proc. AAAI/ACM Conf. on AI, Ethics, and Society, 2024.
+\bibitem{b2} Y. Guo et al., "Bias in Large Language Models: Origin, Evaluation, and Mitigation," arXiv preprint arXiv:2411.10915, 2024.
+\bibitem{b3} N. F. Ayoub et al., "Inherent Bias in Large Language Models: A Random Sampling Analysis," Mayo Clinic Proceedings: Digital Health, 2023.
+\bibitem{b4} P. S. B. Rao et al., "Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models," in Proc. AAAI/ACM Conf. on AI, Ethics, and Society (AIES), 2025.
+\bibitem{b5} K. Wilson and A. Caliskan, "Gender, Race, and Intersectional Bias in Resume Screening via Language Model Retrieval," in Proc. AAAI/ACM Conf. on AI, Ethics, and Society, 2024.
 \bibitem{b6} H. Iso, P. Pezeshkpour, N. Bhutani, and E. Hruschka, "Evaluating Bias in LLMs for Job-Resume Matching: Gender, Race, and Education," in Proc. NAACL (Industry Track), 2025, pp. 672-683.
-\bibitem{b7} Y. Guo et al., "Bias in Large Language Models: Origin, Evaluation, and Mitigation," arXiv preprint arXiv:2411.10915, 2024.
-\bibitem{b8} N. F. Ayoub et al., "Inherent Bias in Large Language Models: A Random Sampling Analysis," Mayo Clinic Proceedings: Digital Health, 2023.
-\bibitem{b9} P. S. B. Rao et al., "Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models," in Proc. AAAI/ACM Conf. on AI, Ethics, and Society (AIES), 2025.
 \end{thebibliography}
 
 \end{document}

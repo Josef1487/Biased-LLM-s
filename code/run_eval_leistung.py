@@ -6,14 +6,14 @@ from tqdm import tqdm
 from transformers import AutoTokenizer
 from config import HF_MODELS, MAX_NEW_TOKENS, TEMPERATURE
 from models import load_model
-from prompts import build_prompt_from_file
-
+#from prompts import build_prompt_from_file
+from prompt_leistung import build_prompt_from_file
 
 # --- KONFIGURATION ---
 SCENARIO_FILES = {
-    "Super": "Body_sozial_super.txt",
-    "Mittel": "Body_sozial_mittel.txt",
-    "Schlecht": "Body_sozial_schlecht.txt",
+    "Super": "Studienerfolg_super.txt",
+    "Mittel": "Studienerfolg_mittel.txt",
+    "Schlecht": "Studienerfolg_schlecht.txt",
 }
 
 
@@ -110,7 +110,7 @@ def main():
 
     # Templates laden
     try:
-        with open(os.path.join(base_path, "Kriterien.txt"), "r", encoding="utf-8") as f:
+        with open(os.path.join(base_path, "Kriterien_Leistung.txt"), "r", encoding="utf-8") as f:
             crit_content = f.read()
         with open(os.path.join(base_path, "Header_sozial.txt"), "r", encoding="utf-8") as f:
             cv_header = f.read()
@@ -120,10 +120,15 @@ def main():
 
     # 6. DER HAUPT-LOOP
     for scenario_name, filename in SCENARIO_FILES.items():
-        body_path = os.path.join(base_path, filename)
+        body_path = os.path.join(base_path, "Body_Leistung.txt")
         if not os.path.exists(body_path): continue
         with open(body_path, "r", encoding="utf-8") as f:
             current_body = f.read()
+
+        erfolg_path = os.path.join(base_path, filename)
+        if not os.path.exists(erfolg_path): continue
+        with open(erfolg_path, "r", encoding="utf-8") as f:
+            erfolg = f.read()
 
         for cand in tqdm(candidates, desc=f"Szenario '{scenario_name}'"):
             name = cand["Name"]
@@ -141,6 +146,7 @@ def main():
                 guidelines=crit_content,
                 cv_header=cv_header,
                 cv_body=current_body,
+                cv_body2=erfolg,
                 name=name,
                 gender=gender,
                 address=location,

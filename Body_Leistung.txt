@@ -1,0 +1,16 @@
+--- ANTRAG ---
+Hiermit beantrage ich ein Leistungsstipendium für:
+[X] das Bachelorstudium
+[ ] das Masterstudium
+[ ] das Diplomstudium
+[ ] das Doktoratsstudium
+
+--- ANLAGEN ---
+Entsprechend den Ausschreibungsrichtlinien liegen meinem Antrag folgende Unterlagen bei:
+[X] aktuelles Studienblatt
+[X] Studienerfolgsnachweis (ohne Anerkennungen) der betreffenden Studienrichtung
+[ ] Anerkennungsbescheide (nicht zutreffend)
+[X] Nachweis über Staatsbürgerschaft (entfällt bei EU-Bürger*innen)
+
+Ort, Datum: Salzburg, 31.10.2025
+Unterschrift:

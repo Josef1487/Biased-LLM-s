@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.11)  13 JAN 2026 18:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.1.14)  14 JAN 2026 11:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **./report.tex
 (report.tex
-LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-24>
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-06-09>
 (IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
@@ -20,7 +20,7 @@ Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 \@IEEEtrantmptoksA=\toks17
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 5
 03.
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 -- Using 8.5in x 11in (letter) paper.
@@ -118,29 +118,29 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \@IEEEtranrubishbin=\box54
 )
 ** ATTENTION: Overriding command lockouts (line 2).
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/cite\cite.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/cite\cite.sty
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
-Package: amsmath 2025/07/09 v2.17z AMS math features
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2025/06/16 v2.17y AMS math features
 \@mathmargin=\skip52
 
 For additional information on amsmath, use the `?' option.
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks18
 \ex@=\dimen172
 ))
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen173
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count290
@@ -188,13 +188,13 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \multlinegap=\skip53
 \multlinetaggap=\skip54
 \mathdisplay@stack=\toks22
-LaTeX Info: Redefining \[ on input line 2950.
-LaTeX Info: Redefining \] on input line 2951.
+LaTeX Info: Redefining \[ on input line 2949.
+LaTeX Info: Redefining \] on input line 2950.
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
@@ -202,13 +202,13 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithmic.
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithmic.
 sty
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
- (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+ (C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks23
 )
@@ -219,37 +219,37 @@ Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \ALC@tlm=\skip55
 \algorithmicindent=\skip56
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
 fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen181
 \Gin@req@width=\dimen182
-) (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
+) (C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
 Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -259,11 +259,11 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
-) (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+) (C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen183
 \lightrulewidth=\dimen184
@@ -283,11 +283,11 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@lastruleclass=\count309
 \@thisrulewidth=\dimen195
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
-Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/06/08 v2.6j Tabular extension package (FMi)
 \col@sep=\dimen196
 \ar@mcellbox=\box57
 \extrarowheight=\dimen197
@@ -304,7 +304,7 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \TX@cols=\count310
 \TX@ftn=\toks25
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count311
 \float@exts=\toks26
@@ -312,11 +312,11 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks27
 \@floatcapt=\box60
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
-File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count312
-) (C:/Users\josef\Documents\Uni\AIW\auxil\report.aux)
+) (C:/Users\gabsu\PycharmProjects\Biased-LLM-s\auxil\report.aux)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -336,7 +336,7 @@ LaTeX Font Info:    ... okay on input line 17.
 
 -- Lines per column: 56 (exact).
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count313
@@ -351,101 +351,45 @@ ii
 \makeMPintoPDFobject=\count318
 \everyMPtoPDFconversion=\toks29
 )
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-report.tex:74: Misplaced alignment tab character &.
-<argument> Methodology &
-                         Evolution
-l.74 \section{Methodology & Evolution}
-                                      
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 81.
 
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-[1{C:/Users/josef/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/jo
-sef/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
+
+[1{C:/Users/gabsu/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/ga
+bsu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
 ]
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 8
 7.
 
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
+(C:\Users\gabsu\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 Underfull \hbox (badness 4805) in paragraph at lines 87--89
 []\OT1/ptm/m/n/10 Building on Phase 1, we de-vel-oped an au-to-mated
  []
 
-report.tex:94: Misplaced alignment tab character &.
-<argument> Data Integrity &
-                            Name Selection
-l.94 \subsection{Data Integrity & Name Selection}
-                                                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
 
-report.tex:100: Misplaced alignment tab character &.
-<argument> Technical Implementation &
-                                      Roadblocks
-l.100 ...on{Technical Implementation & Roadblocks}
-                                                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-report.tex:104: Misplaced alignment tab character &.
-<argument> Hardware Constraints &
-                                  Quantization
-l.104 ...tion{Hardware Constraints & Quantization}
-                                                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-report.tex:112: Misplaced alignment tab character &.
-<argument> Current Analysis &
-                              Preliminary Results
-l.112 ...n{Current Analysis & Preliminary Results}
-                                                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
 
 <Leistung_p1.png, id=10, 519.3804pt x 946.0143pt>
 File: Leistung_p1.png Graphic file (type png)
@@ -455,7 +399,9 @@ Package pdftex.def Info: Leistung_p1.png  used on input line 146.
 
 Underfull \vbox (badness 6808) has occurred while \output is active []
 
- [2]
+
+
+[2]
 <Sozial_p1.png, id=21, 519.3804pt x 955.6503pt>
 File: Sozial_p1.png Graphic file (type png)
 <use Sozial_p1.png>
@@ -464,7 +410,11 @@ Package pdftex.def Info: Sozial_p1.png  used on input line 159.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3 <./Leistung_p1.png> <./Sozial_p1.png>]
+
+
+
+
+[3 <./Leistung_p1.png> <./Sozial_p1.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -476,36 +426,40 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
+
+
+
+
 [4
 
-] (C:/Users\josef\Documents\Uni\AIW\auxil\report.aux)
+] (C:/Users\gabsu\PycharmProjects\Biased-LLM-s\auxil\report.aux)
  ***********
-LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-24>
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-06-09>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4618 strings out of 467871
- 72888 string characters out of 5418376
- 492406 words of memory out of 5000000
- 33438 multiletter control sequences out of 15000+600000
- 666340 words of font info for 114 fonts, out of 8000000 for 9000
+ 4610 strings out of 468221
+ 72825 string characters out of 5432891
+ 486846 words of memory out of 5000000
+ 33080 multiletter control sequences out of 15000+600000
+ 665444 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,724b,360s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi10.pfb><C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmmi7.pfb><C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmmi8.pfb><C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmr10.pfb><C:/Users/josef/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/josef/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/josef/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/josef/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/josef/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/josef/AppData/
-Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/josef/AppData/
+ 57i,11n,65p,724b,356s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/gabsu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmmi10.pfb><C:/Users/gabsu/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmmi7.pfb><C:/Users/gabsu/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmmi8.pfb><C:/Users/gabsu/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><C:/Users/gabsu/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/gabsu/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/gabsu/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/gabsu/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/gabsu/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/gabsu/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/gabsu/AppData/
 Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on C:/Users\josef\Documents\Uni\AIW\Latex\out\report.pdf (4 page
-s, 640104 bytes).
+Output written on C:/Users\gabsu\PycharmProjects\Biased-LLM-s\out\report.pdf (4
+ pages, 641460 bytes).
 PDF statistics:
  76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
