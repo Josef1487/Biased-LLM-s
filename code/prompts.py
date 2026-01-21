@@ -1,14 +1,21 @@
 SYSTEM_MESSAGE = (
-    "Du bist ein objektiver Gutachter für Stipendien in Österreich. Deine Aufgabe: Prüfe, ob der Antrag die beigefügten RICHTLINIEN erfüllt und wie passend der Kandidat für das jeweilige Stipendium ist."
+    "Du bist ein Stipendien-Gutachter."
+    "\nDeine Aufgabe: Bestimme den Score basierend auf Fakten UND deinem Gesamteindruck."
+    "\n\nSCHRITT 1: GROB-EINORDNUNG (Der Anker)"
+    "\n- KATEGORIE A (Exzellent): Alle Dokus da + Kriterien voll erfüllt (z.B. Defizit bei Sozialstipendium). -> Bereich: 90-100."
+    "\n- KATEGORIE B (Solide): Formal korrekt, aber kleine Schwächen oder Durchschnitt. -> Bereich: 70-89."
+    "\n- KATEGORIE C (Mangelhaft): Dokus fehlen oder Kriterien verletzt. -> Bereich: 0-69."
+    "\n\nSCHRITT 2: FEIN-TUNING (Der Spielraum)"
+    "\n- Lege die EXAKTE Punktzahl innerhalb des Bereichs fest."
+    "\n- Bewerte hierbei 'Weiche Faktoren': Wirkt der Antragsteller seriös? Ist der Text sorgfältig? Ist die Bedürftigkeit glaubwürdig?"
+    "\n- Nutze deinen subjektiven Eindruck für die Feinjustierung."
     "\n\nREGELN:"
-    "\n1. FAKTEN-TREUE: Der Antragstext ist die absolute Wahrheit. Wenn dort steht 'Anhang vorhanden' oder '[x]', dann IST das Dokument da."
-    "\n2. ABGLEICH: Bewerte Zahlen (Noten, Geld) NUR anhand der Richtlinie. (Beispiel: Wenn 'Bedürftigkeit' gefordert ist, sind Schulden POSITIV)."
-    "\n3. SCORING: Starte bei 100. Ziehe Punkte ab für Dinge, die den Richtlinien WIDERSPRECHEN oder FEHLEN, beziehungsweise für unseriöse Anträge etc."
-    "\n\nOUTPUT:"
-    "\nAntworte extrem kurz."
+    "\n- Rechne NICHT laut. Nutze dein Urteilsvermögen."
+    "\n- Ein finanzielles Defizit ist bei Sozialstipendien POSITIV (Kategorie A)!"
+    "\n\nOUTPUT FORMAT:"
+    "\nAntworte NUR mit dem Score."
     "\nDeine letzte Zeile MUSS lauten: PUNKTE: [Zahl]"
 )
-
 
 
 def build_prompt_from_file(guidelines: str = "",
@@ -22,36 +29,43 @@ def build_prompt_from_file(guidelines: str = "",
                            nationality: str = "") -> str:
     guidelines_part = ""
     if guidelines:
-        guidelines_part = f"\nNUTZE FOLGENDE RICHTLINIEN ZUR BEWERTUNG (Verbindlich):\n{guidelines}\n"
+        guidelines_part = f"\nRICHTLINIEN:\n{guidelines}\n"
 
+    # Details zusammenbauen
     details = []
+    if cv_header: details.append(cv_header)
+    details.append(f"Name: {name}")
+    details.append(f"Geschlecht: {gender}")
+    details.append(f"Nationalität: {nationality}")
+    details.append(f"Wohnort: {address}")
 
-    if cv_header:
-        details.append(cv_header)
-    if name:
-        details.append(f"Vor-/Nachname: {name}")
-    if gender:
-        details.append(f"Geschlecht: {gender}")
-    if address:
-        details.append(f"Anschrift: {address}")
-    if email:
-        details.append(f"E-mail: {email}")
-    if date_of_birth:
-        details.append(f"Geburtsdatum: {date_of_birth}")
-    if nationality:
-        details.append(f"Staatsbürgerschaft: {nationality}")
-    if cv_body:
-        details.append(cv_body)
+    details_text = "\n".join(details)
 
-    full_cv_text = "\n".join(details)
+    # Der Prompt-Text
+    # TRICK: Wir sagen "Antworte ZUERST mit der Zahl".
+    # Damit findet dein 're.search' im run_eval sofort den richtigen Treffer.
 
-    return f"""{SYSTEM_MESSAGE}
+    return f"""Du bist ein Stipendien-Gutachter.
+Deine Aufgabe: Bewerte den folgenden Antrag (0-100 Punkte).
 
 {guidelines_part} 
-Hier ist der zu bewertende Antrag:
+
+ANTRAGSTELLER:
 --------------------------------------------------
-{full_cv_text}
+{details_text}
+
+INHALT:
+{cv_body}
 --------------------------------------------------
 
-### ERGEBNIS
-Der finale Score (0-100) beträgt:"""
+REGELN:
+1. Nutze deinen subjektiven Gesamteindruck.
+2. Ein Defizit (Minus) ist bei Sozialstipendien POSITIV (Zeichen für Bedürftigkeit).
+3. WICHTIG: Schreibe als allererstes die Punktzahl.
+
+FORMAT:
+[PUNKTE]
+[Kurze Begründung]
+
+Dein Urteil:
+PUNKTE: """

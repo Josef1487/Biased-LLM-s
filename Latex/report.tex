@@ -7,15 +7,17 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{url}
-\usepackage{booktabs} % Für schönere Tabellen
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float} % WICHTIG FÜR [H] PLATZIERUNG
 
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
 
 \begin{document}
 
-% --- TITEL & AUTOREN ---
-\title{Algorithmic Bias in LLM-based Decision Support Systems: A Case Study on Austrian Scholarships}
+% --- TITEL ---
+\title{How biased are LLMs: A Case Study on Austrian Scholarships}
 
 \author{
     \IEEEauthorblockN{Josef Bichler}
@@ -40,124 +42,139 @@
 \maketitle
 
 \begin{abstract}
-As Large Language Models (LLMs) are increasingly deployed in administrative decision-making, the risk of propagated algorithmic bias becomes a critical concern. Recent studies indicate that gender and age distortions are pervasive in online media and language models, often misrepresenting sociodemographic realities. This project investigates potential biases in open-source LLMs within the specific context of Austrian scholarship allocation. We simulate an automated "Admission Office" to determine whether models like \texttt{Meta-Llama-3.2-3B-Instruct} treat applicants differently based on demographic markers (name, nationality, gender) despite identical qualifications.
-This update report documents the methodology, specifically the selection of four distinct scholarship scenarios (OeAD, ÖH, PLUS), the development of an automated permutation pipeline, and the significant challenges in prompt engineering required to stabilize model output. Preliminary results indicate that while functional stability has been achieved, the model exhibits sensitivity to specific prompt phrasings, necessitating "Logic Injection" techniques to correctly interpret financial need.
+
+The deployment of Large Language Models (LLMs) in public administration raises serious concerns about algorithmic fairness. While early LLM iterations often exhibited overt discrimination, modern models undergo rigorous safety alignment, making biased patterns difficult to detect in routine tasks.
+It is unclear, however, if this training actually removes the bias or just hides it in standard scenarios.
+This project investigates this potential "hidden bias" within the specific context of Austrian scholarship allocation. We simulate an automated "Admission Office" to determine whether models like Llama-3, Mistral, and Qwen treat applicants differently based on demographic markers (name, nationality, location) despite identical qualifications.
+This report documents our iterative experimental design, starting from single-case evaluations to a fully automated permutation pipeline. We discuss technical roadblocks, such as hardware constraints necessitating quantization, and our current focus on the intersectional analysis of name and location bias using Python-based evaluation tools.
 \end{abstract}
 
 \begin{IEEEkeywords}
-LLM Bias, Automated Decision Making, Prompt Engineering, Fairness, Llama-3, Scholarship Allocation
+LLM Bias, Automated Decision Making, Prompt Engineering, Fairness, Llama, Scholarship Allocation
 \end{IEEEkeywords}
 
 % --- HAUPTTEIL ---
 
 \section{Introduction}
-The integration of Artificial Intelligence into bureaucratic processes promises increased efficiency and scalability. However, this automation carries the inherent risk of scaling discrimination. Large Language Models (LLMs), trained on vast datasets from the internet, are known to reproduce and potentially amplify human stereotypes. Recent research by Guilbeault et al. highlights that widespread stereotypes in online media are not merely reflections of reality but often socially distorted, particularly regarding age and gender[cite: 10, 12].
 
-When such models are applied to high-stakes decisions like scholarship allocation, these distortions can lead to systematic disadvantages. This project aims to quantify whether a locally hosted LLM, acting as an objective reviewer, evaluates candidates differently based solely on their identity attributes (e.g., "Josef Bichler" vs. "Ali Yilmaz"). We simulate the review process of the Austrian academic funding landscape, creating a controlled environment where financial need, academic performance, and formal correctness remain constant, while only the applicant's identity varies.
+Using Artificial Intelligence in administrative tasks can help process applications faster and more consistently. However, this automation carries the inherent risk of scaling discrimination. Large Language Models (LLMs), trained on vast datasets from the internet, are known to reproduce and potentially amplify human stereotypes. Recent research highlights that widespread stereotypes in online media are not merely reflections of reality but often socially distorted, particularly regarding age and gender \cite{b1}.
+
+When such models are applied to high-stakes decisions like scholarship allocation, these distortions can lead to systematic disadvantages. This project aims to quantify whether locally hosted LLMs, acting as objective reviewers, evaluate candidates differently based solely on their identity attributes. We focus specifically on the Austrian academic funding landscape, analyzing distinct funding types such as the \textit{ÖH Sozialstipendium} and \textit{Leistungsstipendium}.
 
 \section{Related Work}
-The phenomenon of algorithmic bias is well-documented. Guilbeault et al. demonstrated that online representations often exaggerate stereotypes, such as associating women with younger ages and lower-status occupations compared to men, despite contradictory census data[cite: 12, 13]. These biases are encoded in the training data of models like GPT-2 and Llama, potentially influencing downstream tasks[cite: 15]. Our work extends this line of inquiry by applying it to a specific, localized administrative task: the evaluation of Austrian scholarship applications, a domain where "fairness" is legally mandated but algorithmically difficult to guarantee.
 
-\section{Methodology}
+Bias in Large Language Models is a well-known problem that has been categorized in various ways. Guo et al. (2024) provide a comprehensive taxonomy of these biases, distinguishing between intrinsic biases rooted in training data and extrinsic biases that manifest in downstream tasks \cite{b7}. This distinction is crucial, as even technically robust models can produce discriminatory outcomes when applied to high-stakes decision-making scenarios. For instance, Ayoub et al. (2023) demonstrated through random sampling analysis that LLMs exhibit inherent biases in critical medical decision-making, favoring patients based on demographic attributes rather than medical necessity \cite{b8}.
 
-To ensure a realistic evaluation, we adopted a multi-stage approach combining real-world criteria with synthetic applicant data.
+In the specific domain of recruitment and candidate evaluation, these biases become particularly pronounced. Rao et al. (2025) highlighted the existence of "invisible filters" in LLM-based hiring, showing that cultural bias significantly impacts the evaluation of job interviews, often disadvantaging candidates from non-Western backgrounds \cite{b9}. Similarly, Wilson and Caliskan (2024) audited Massive Text Embedding (MTE) models used for resume screening and found severe intersectional biases, where White-associated names were favored in 85.1\% of cases, while Black males faced disadvantages in nearly all simulations \cite{b4}.
 
-\subsection{Scholarship Scenarios}
-We selected four distinct scholarship types to cover a broad spectrum of requirements, ranging from social need to academic excellence. This diversity allows us to test if bias manifests differently depending on the evaluation context (e.g., is bias stronger when "excellence" is the criterion?).
+Most relevant to our generative approach is the work of Iso et al. (2025), who evaluated bias in job-resume matching across models like Llama and Mistral. They observed that while modern models have reduced explicit gender and racial biases compared to earlier iterations, implicit biases—particularly regarding educational background—persist \cite{b6}.
+We build on this by looking at the Austrian scholarship system to see if modern models are truly fair or if they still harbor deeper biases when judging financial need and grades.
 
+
+\section{Methodology & Evolution}
+
+Our experimental design evolved through iterative testing of the Austrian funding landscape.
+
+\subsection{Phase 1: Single-Case Testing}
+Initially, we focused on manual prompts for the \textbf{ÖH Sozialstipendium} (Social Grant) and \textbf{ÖH Leistungsstipendium} (Merit Grant). We constructed complete, static candidate profiles without permutations to establish a baseline for model behavior.
 \begin{itemize}
-    \item \textbf{OeAD "Ernst Mach" Stipendium:} Focuses on international mobility and research proposals. The evaluation is subjective, assessing the "merit" of the research plan.
-    \item \textbf{ÖH-Sozialstipendium:} A social support grant where financial need (low income, high expenses) is the primary criterion. This requires the model to perform arithmetic reasoning.
-    \item \textbf{Förderungsstipendium (PLUS):} Targeting support for scientific theses (Master's/PhD) at the University of Salzburg. Criteria mix academic performance with cost estimation.
-    \item \textbf{Leistungsstipendium (PLUS):} Based purely on grade point average (GPA) and ECTS performance. This serves as a control group, as it leaves little room for interpretation.
+    \item \textbf{Finding:} Modern models (like Llama-3) are highly optimized for helpfulness. When presented with a clear case, they tended to award full points regardless of the name, exhibiting a "Positivity Bias."
+    \item \textbf{Implication:} To detect bias, we realized we could not use "perfect" applicants. Bias tends to appear when the decision is not obvious.
+
 \end{itemize}
 
-For each scenario, we extracted the official "Vergabekriterien" (award criteria) and converted them into a machine-readable set of guidelines (`Kriterien.txt`).
+\subsection{Phase 2: The Permutation Pipeline}
+Building on Phase 1, we developed an automated pipeline using "Neutral Templates" (\texttt{Body\_perfect.txt} vs. \texttt{Body\_borderline.txt}). These templates represent the application content independently of the applicant.
+We inject variables into these templates to create a high-dimensional search space, significantly increasing the number of permutations compared to our initial manual approach:
+\begin{equation}
+    N_{total} = N_{Names} \times N_{Nationalities} \times N_{Locations}
+\end{equation}
+This allows us to test if a specific combination (e.g., "Turkish-sounding Name, Rural Location") triggers a different score than the baseline "Austrian Name, Urban Location," despite identical grades.
 
-\subsection{Automated CV Permutation}
-To isolate bias, we utilize a permutation approach. We created "Neutral Templates" for application bodies (`Body_perfect.txt` and `Body_borderline.txt`).
+\subsection{Data Integrity & Name Selection}
+To avoid introducing "Researcher Bias" into the experiment (e.g., by cherry-picking names), we strictly utilized external statistical data for name selection. The list of names for each demographic group (DACH, Turkish, Slavic, etc.) was derived from public census data, insurance statistics, and sociological surveys indicating the most common first and last names in the respective regions. This ensures that the names used are representative of real-world populations rather than stereotypical constructs.
+
+\subsection{Model Landscape}
+We verify results across different architectures to ensure findings are not artifacts of a single model's training data. Our test set includes the \textbf{Meta Llama Family} (Llama-2 7B vs. Llama-3 3B/8B) as well as \textbf{Mistral}, \textbf{Qwen}, and \textbf{Phi}.
+
+\section{Technical Implementation & Roadblocks}
+
+Developing a robust automated evaluator on local hardware proved challenging.
+
+\subsection{Hardware Constraints & Quantization}
+A major roadblock was the memory requirement. Our setup is constrained to consumer-grade hardware with 12GB VRAM. Running \texttt{Llama-3-8B} in full precision requires approx. 16GB VRAM. We integrated \texttt{bitsandbytes} to utilize 4-bit Quantization (NF4), allowing us to run 7B and 8B models efficiently locally.
+
+\subsection{The "Apparent Fairness" Paradox}
+A surprising finding was that newer models (like Llama-3) initially seemed "bias-free," often awarding 100/100 points to both "Josef" and "Ali."
+This is likely due to extensive Reinforcement Learning from Human Feedback (RLHF). To counter this, we introduced the \textbf{"Borderline Scenario"}. By creating an application that is riddled with minor errors and ambiguity, we force the model to make a subjective choice, which is where we expect implicit biases to show up.
+
+
+\section{Current Analysis & Preliminary Results}
+
+We are currently conducting the full permutation runs. For this preliminary phase, we prioritized the variables \textbf{Name} and \textbf{Location}. This decision is grounded in the data structure of the Austrian \textit{ÖH Sozialstipendium}, where residency (Location) and identity markers (Name) are the primary required inputs, rendering explicit nationality fields less impactful for this specific use case.
+
+\subsection{Scholarship Scenarios Overview}
+To illustrate the diversity of our test cases, Table \ref{tab:scenarios} provides an overview of the specific criteria used.
+
+\begin{table}[htbp]
+\caption{Selected Scholarship Scenarios}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}l l X@{}}
+\toprule
+\textbf{Prov.} & \textbf{Type} & \textbf{Key Criteria} \\
+\midrule
+OeAD & Ernst Mach & Subjective Merit, Proposal Quality \\
+ÖH & Sozialstip. & Need (Expenses $>$ Income) \\
+PLUS & Förderung & Thesis support, Cost est. \\
+PLUS & Leistung & Objective GPA (Control) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\label{tab:scenarios}
+\end{table}
+
+\subsection{Merit Scholarship Analysis (Leistungsstipendium)}
+Our first detailed analysis compares \textbf{Phi-3.5-mini-instruct} and \textbf{Qwen2.5-3B-Instruct} on the merit-based scholarship. Figure \ref{fig1} illustrates the "Average Suitability" (mean score) awarded by both models across three academic performance tiers: "Excellent", "Average", and "Poor".
+The analysis permutes names across five distinct demographic groups: \textbf{Austrian, Croatian, Japanese, Turkish, and US American}.
 \begin{itemize}
-    \item \textbf{Variables:} A Python script injects variables for Name, Nationality, and Gender into these templates.
-    \item \textbf{Consistency:} The core content (grades, financial numbers, text quality) remains bit-wise identical across permutations.
-\end{itemize}
-This ensures that any deviation in the score can be attributed solely to the injected demographic variable.
-
-\subsection{The Evaluation Pipeline}
-The technical implementation follows a four-step pipeline structure:
-\begin{enumerate}
-    \item \textbf{Input \& Model Loading:} Loading the quantized model via \texttt{huggingface/transformers} and the scenario files.
-    \item \textbf{Prompt Construction:} Dynamic assembly of the system prompt. We employ a modular function \texttt{build\_prompt\_from\_file} that injects the specific criteria for the chosen scholarship into a "Universal Reviewer" persona.
-    \item \textbf{Inference (Bewertung):} The model processes the application and calculates a score (0-100). We utilize Chat-Templates to structure the input clearly into "System" (Instructions) and "User" (Application) roles.
-    \item \textbf{Logging \& Evaluation:} The output is parsed via Regex (\texttt{PUNKTE: \textbackslash d+}), and the final score is saved to a CSV file for statistical analysis.
-\end{enumerate}
-
-\section{Technical Implementation & Challenges}
-
-Developing a robust automated evaluator proved to be the most significant challenge of the project so far. We encountered several failure modes in the LLM's reasoning capabilities.
-
-\subsection{Hardware and Model Selection}
-Our initial experiments utilized \texttt{Meta-Llama-3.2-3B-Instruct}. While we considered the larger 8B parameter model, our hardware constraints (12GB VRAM GPU) made native FP16 inference of the 8B model infeasible without significant performance penalties (CPU offloading).
-\textbf{Future Strategy:} For the upcoming comparison phase, we will implement 4-bit quantization using `bitsandbytes` to run \texttt{Llama-2-7b-chat} efficiently on the same hardware. This older model is hypothesized to contain stronger, less "aligned" biases[cite: 16].
-
-\subsection{Prompt Engineering Challenges}
-We identified three critical issues where the model failed to act as a rational reviewer:
-
-\subsubsection{The "Zero-Score" Anomaly}
-In early tests, the model would output detailed reviews finding "0 errors" but then assign a score of "0". Analysis revealed that the model interpreted the integer "0" in its own text (referring to error count) as the final score.
-\textbf{Solution:} We inverted the prompt logic to a subtraction-based system ("Start at 100, subtract points for errors") and enforced a strict output format marker (\texttt{PUNKTE: [Int]}), which is parsed via a specialized Regular Expression.
-
-\subsubsection{Hallucinations and Fact-Checking}
-The 3B parameter model showed a tendency to hallucinate missing documents. Despite the application text explicitly stating "[x] Transcript attached", the model penalized the applicant for missing transcripts. This suggests a lack of object permanence or context retention in smaller models.
-\textbf{Solution:} We implemented a "Reality Check" instruction in the system prompt. We explicitly command the model: \textit{"The text of the application is the absolute truth. If it says a document is present, do not doubt it."} This reduced false negatives significantly.
-
-\subsubsection{Logic Injection for Financial Context}
-A counter-intuitive issue arose with the social scholarships. The model penalized candidates for having a financial deficit (Expenses > Income), interpreting it as "poor financial management". In the context of a social grant, however, a deficit is a positive indicator of eligibility ("Bedürftigkeit").
-\textbf{Solution:} We utilized "Logic Injection" in the system prompt. We dynamically instruct the model that within the context of social scholarships, a financial deficit must be evaluated as a \textbf{positive} factor towards the score.
-
-\section{Preliminary Results}
-
-After stabilizing the prompt architecture with the hybrid approach (Hard Facts + Soft Skills), initial test runs show promising data quality:
-
-\subsection{Quantitative Analysis}
-\begin{itemize}
-    \item The \textbf{Perfect Scenario} reliably achieves scores between 90 and 100 across different names, validating the prompt's functional correctness.
-    \item The \textbf{Borderline Scenario} shows a healthy variance between 40 and 60 points. This variance is crucial, as it provides the statistical "wiggle room" necessary to detect potential bias. If the model were too binary (0 or 100), subtle biases would be masked.
+    \item \textbf{Ranking Consistency:} Both models correctly preserve the hierarchy of academic merit (Excellent $>$ Average $>$ Poor).
+    \item \textbf{Variance Analysis:} The black error bars in Figure \ref{fig1} indicate the standard deviation within each demographic group. While "Excellent" candidates show minimal variance, Phi-3.5 exhibits noticeable fluctuations in the "Poor" category, suggesting less stability in decision-making when the application quality decreases.
 \end{itemize}
 
-\subsection{Qualitative Analysis}
-We are currently monitoring for "Positivity Bias", where the model might be overly polite to all applicants regardless of quality. The introduction of the "Borderline" scenario (containing intentional flaws and sloppiness) has proven effective in breaking this positivity loop.
+% FIGURE 1 NACH DEM TEXT, MIT [H] GEZWUNGEN
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.9\linewidth]{Leistung_p1}}
+\caption{Comparison of Average Suitability scores between Phi-3.5-mini-instruct and Qwen2.5-3B-Instruct on the Merit Scholarship. Results are stratified by academic performance (Excellent, Average, Poor) and Applicant Origin (Austrian, Croatian, Japanese, Turkish, US American). Black lines indicate standard deviation.}
+\label{fig1}
+\end{figure}
 
-\begin{figure}[htbp]
-\centerline{\includegraphics[width=0.9\linewidth]{fig1.png}}
-\caption{Abstract representation of the evaluation pipeline, showing the flow from Permutation Engine to the LLM Scorer.}
-\label{fig}
+\subsection{Social Scholarship Analysis (Sozialstipendium)}
+For the needs-based social scholarship, we isolated the \textbf{Phi-3.5-mini-instruct} model to investigate its robustness against ambiguity (Figure \ref{fig2}).
+We evaluated three application bodies: "Good" (clear need), "Bad" (no need), and "Middle" (ambiguous financial data). The "Middle" scenario serves as a stress test, containing estimated costs rather than verified proofs.
+Preliminary results suggest that while Phi-3.5 handles clear cases (Good/Bad) consistently, the "Middle" scenario triggers increased scoring variance. This supports our idea that bias is more likely to appear when the model has to interpret missing or unclear information in the text.
+
+
+% FIGURE 2 NACH DEM TEXT, MIT [H] GEZWUNGEN
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.9\linewidth]{Sozial_p1}}
+\caption{Scoring distribution of Phi-3.5-mini-instruct on the Social Scholarship. The analysis focuses on the "Middle" application body, designed to test the model's handling of financial ambiguity compared to clear-cut cases (Good, Bad).}
+\label{fig2}
 \end{figure}
 
 \section{Future Work}
-The immediate next steps until the final submission involve rigorous statistical testing.
+The immediate next steps involve rigorous statistical testing. We will execute the full permutation matrix on all 4 scholarship scenarios, expanding the analysis to include additional bias dimensions beyond name and location. We aim to run thousands of permuted cases to ensure our results are statistically robust and reproducible, rather than just anecdotal observations.
 
-\subsection{Full Permutation Run}
-We will execute the full matrix of $N=100$ Names $\times$ $M=10$ Nationalities on all 4 scholarship scenarios. This will generate a dataset of several thousand evaluations.
-
-\subsection{Model Comparison}
-We will integrate \texttt{Llama-2-7b} (via quantization) to test the hypothesis that older, less safety-aligned models exhibit stronger stereotypical bias than the modern Llama-3. The hypothesis is that Llama-2 might penalize non-German names more heavily in the "Soft Skills" category (trustworthiness, language proficiency).
-
-\subsection{Statistical Analysis}
-To quantify bias significance, we will calculate:
-\begin{enumerate}
-    \item \textbf{Delta ($\Delta$) Scores:} The difference in mean scores between demographic groups (e.g., Austrian vs. Turkish).
-    \item \textbf{ANOVA:} Analysis of Variance to determine if Name/Nationality are statistically significant predictors of the Score.
-\end{enumerate}
 
 \section*{Acknowledgment}
-We thank the course instructors for their guidance on hardware optimization and the suggestion to include legacy models for comparative bias analysis.
+We thank the course instructors for their guidance. We extend special gratitude to our group supervisor, Frank Pallas, for his open communication and continuous support throughout this project.
 
 \begin{thebibliography}{00}
-\bibitem{b1} T. Brown et al., "Language Models are Few-Shot Learners," in NeurIPS, 2020.
-\bibitem{b2} D. Guilbeault, S. Delecourt, and B. S. Desikan, "Age and gender distortion in online media and large language models," Nature, vol. 646, pp. 1129-1137, Oct. 2025.
-\bibitem{b3} A. Touvron et al., "Llama 2: Open Foundation and Fine-Tuned Chat Models," Meta AI, 2023.
-\bibitem{b4} C. O'Neil, "Weapons of Math Destruction," Crown Books, 2016.
-\bibitem{b5} S. Barocas and A. D. Selbst, "Big Data's Disparate Impact," California Law Review, 2016.
+\bibitem{b1} D. Guilbeault, S. Delecourt, and B. S. Desikan, "Age and gender distortion in online media and large language models," Nature, vol. 646, pp. 1129-1137, Oct. 2024.
+\bibitem{b4} K. Wilson and A. Caliskan, "Gender, Race, and Intersectional Bias in Resume Screening via Language Model Retrieval," in Proc. AAAI/ACM Conf. on AI, Ethics, and Society, 2024.
+\bibitem{b6} H. Iso, P. Pezeshkpour, N. Bhutani, and E. Hruschka, "Evaluating Bias in LLMs for Job-Resume Matching: Gender, Race, and Education," in Proc. NAACL (Industry Track), 2025, pp. 672-683.
+\bibitem{b7} Y. Guo et al., "Bias in Large Language Models: Origin, Evaluation, and Mitigation," arXiv preprint arXiv:2411.10915, 2024.
+\bibitem{b8} N. F. Ayoub et al., "Inherent Bias in Large Language Models: A Random Sampling Analysis," Mayo Clinic Proceedings: Digital Health, 2023.
+\bibitem{b9} P. S. B. Rao et al., "Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models," in Proc. AAAI/ACM Conf. on AI, Ethics, and Society (AIES), 2025.
 \end{thebibliography}
 
 \end{document}

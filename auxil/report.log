@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.10)  11 JAN 2026 18:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.11)  13 JAN 2026 18:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -283,44 +283,73 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@lastruleclass=\count309
 \@thisrulewidth=\dimen195
 )
+(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+
+(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen196
+\ar@mcellbox=\box57
+\extrarowheight=\dimen197
+\NC@list=\toks24
+\extratabsurround=\skip57
+\backup@length=\skip58
+\ar@cellbox=\box58
+)
+\TX@col@width=\dimen198
+\TX@old@table=\dimen199
+\TX@old@col=\dimen256
+\TX@target=\dimen257
+\TX@delta=\dimen258
+\TX@cols=\count310
+\TX@ftn=\toks25
+)
+(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count311
+\float@exts=\toks26
+\float@box=\box59
+\@float@everytoks=\toks27
+\@floatcapt=\box60
+)
 (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count310
-) (C:/Users\josef\Documents\Uni\AIW\Latex\auxil\report.aux)
+\l__color_backend_stack_int=\count312
+) (C:/Users\josef\Documents\Uni\AIW\auxil\report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
 
 -- Lines per column: 56 (exact).
 
 (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count311
-\scratchdimen=\dimen196
-\scratchbox=\box57
-\nofMPsegments=\count312
-\nofMParguments=\count313
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count314
-\MPscratchDim=\dimen197
-\MPnumerator=\count315
-\makeMPintoPDFobject=\count316
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count313
+\scratchdimen=\dimen259
+\scratchbox=\box61
+\nofMPsegments=\count314
+\nofMParguments=\count315
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count316
+\MPscratchDim=\dimen260
+\MPnumerator=\count317
+\makeMPintoPDFobject=\count318
+\everyMPtoPDFconversion=\toks29
 )
 (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -332,128 +361,60 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 4
-3.
- (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-LaTeX Font Info:    Trying to load font information for U+msa on input line 69.
+report.tex:74: Misplaced alignment tab character &.
+<argument> Methodology &
+                         Evolution
+l.74 \section{Methodology & Evolution}
+                                      
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
 
 (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 69.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 81.
 
 
 (C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-report.tex:78: Missing $ inserted.
-<inserted text> 
-                $
-l.78 ... Templates" for application bodies (`Body_
-                                                  perfect.txt` and `Body_bor...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-report.tex:80: Missing $ inserted.
-<inserted text> 
-                $
-l.80     \item
-               \textbf{Variables:} A Python script injects variables for Nam...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-report.tex:80: Missing \endgroup inserted.
-<inserted text> 
-                \endgroup 
-l.80     \item
-               \textbf{Variables:} A Python script injects variables for Nam...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Underfull \hbox (badness 3354) in paragraph at lines 78--80
-[]\OT1/ptm/m/n/10 To iso-late bias, we uti-lize a per-mu-ta-tion ap-proach.
- []
-
-
-Underfull \hbox (badness 2698) in paragraph at lines 78--80
-\OT1/ptm/m/n/10 We cre-ated "Neu-tral Tem-plates" for ap-pli-ca-tion bod-ies
- []
-
 [1{C:/Users/josef/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/jo
 sef/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
 ]
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 8
+7.
 
-report.tex:80: LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.80     \item \textbf
-                      {Variables:} A Python script injects variables for Nam...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-report.tex:81: LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.81     \item \textbf
-                      {Consistency:} The core content (grades, financial num...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-report.tex:82: LaTeX Error: \begin{document} ended by \end{itemize}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.82 \end{itemize}
-                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-report.tex:82: Extra \endgroup.
-\end  ...end#1\endcsname \@checkend {#1}\endgroup 
-                                                  \UseHook {env/#1/after}\if...
-l.82 \end{itemize}
-                  
-Things are pretty mixed up, but I think the worst is over.
-
-
-Underfull \hbox (badness 1817) in paragraph at lines 89--90
-\OT1/pcr/m/n/10 build_prompt_from_file \OT1/ptm/m/n/10 that in-jects the
+(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Underfull \hbox (badness 4805) in paragraph at lines 87--89
+[]\OT1/ptm/m/n/10 Building on Phase 1, we de-vel-oped an au-to-mated
  []
 
-LaTeX Font Info:    Trying to load font information for OMS+pcr on input line 9
-1.
-(C:\Users\josef\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omspcr.fd
-File: omspcr.fd 
-)
-LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 91.
-
 report.tex:94: Misplaced alignment tab character &.
+<argument> Data Integrity &
+                            Name Selection
+l.94 \subsection{Data Integrity & Name Selection}
+                                                 
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+report.tex:100: Misplaced alignment tab character &.
 <argument> Technical Implementation &
-                                      Challenges
-l.94 ...ion{Technical Implementation & Challenges}
+                                      Roadblocks
+l.100 ...on{Technical Implementation & Roadblocks}
                                                   
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -462,28 +423,48 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
+report.tex:104: Misplaced alignment tab character &.
+<argument> Hardware Constraints &
+                                  Quantization
+l.104 ...tion{Hardware Constraints & Quantization}
+                                                  
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
 
-Underfull \hbox (badness 10000) in paragraph at lines 99--101
-[]\OT1/ptm/m/n/10 Our ini-tial ex-per-i-ments uti-lized
- []
+report.tex:112: Misplaced alignment tab character &.
+<argument> Current Analysis &
+                              Preliminary Results
+l.112 ...n{Current Analysis & Preliminary Results}
+                                                  
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
 
+<Leistung_p1.png, id=10, 519.3804pt x 946.0143pt>
+File: Leistung_p1.png Graphic file (type png)
+<use Leistung_p1.png>
+Package pdftex.def Info: Leistung_p1.png  used on input line 146.
+(pdftex.def)             Requested size: 226.79846pt x 413.08632pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 99--101
-\OT1/pcr/m/n/10 Meta-Llama-3.2-3B-Instruct\OT1/ptm/m/n/10 . While we
- []
+Underfull \vbox (badness 6808) has occurred while \output is active []
 
+ [2]
+<Sozial_p1.png, id=21, 519.3804pt x 955.6503pt>
+File: Sozial_p1.png Graphic file (type png)
+<use Sozial_p1.png>
+Package pdftex.def Info: Sozial_p1.png  used on input line 159.
+(pdftex.def)             Requested size: 226.79846pt x 417.29396pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 99--101
-\OT1/ptm/m/n/10 per-for-mance penal-ties (CPU of-fload-ing). \OT1/ptm/b/n/10 Fu
--ture
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<fig1.png, id=11, 82.1469pt x 71.5473pt>
-File: fig1.png Graphic file (type png)
-<use fig1.png>
-Package pdftex.def Info: fig1.png  used on input line 131.
-(pdftex.def)             Requested size: 226.79846pt x 197.5482pt.
-[2]
+ [3 <./Leistung_p1.png> <./Sozial_p1.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -495,39 +476,38 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[3
+[4
 
- <./fig1.png (PNG copy)>]
-(C:/Users\josef\Documents\Uni\AIW\Latex\auxil\report.aux)
+] (C:/Users\josef\Documents\Uni\AIW\auxil\report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4390 strings out of 467871
- 69363 string characters out of 5418376
- 489342 words of memory out of 5000000
- 33224 multiletter control sequences out of 15000+600000
- 660924 words of font info for 101 fonts, out of 8000000 for 9000
+ 4618 strings out of 467871
+ 72888 string characters out of 5418376
+ 492406 words of memory out of 5000000
+ 33438 multiletter control sequences out of 15000+600000
+ 666340 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,8n,65p,767b,278s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,724b,360s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmmi10.pfb><C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmmi7.pfb><C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb><C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/josef/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/josef/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/josef/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/josef/AppData/Local/P
-rograms/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/josef/AppData/Local/P
-rograms/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/josef/AppData/Local/
-Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/josef/AppData/Local/
-Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on C:/Users\josef\Documents\Uni\AIW\Latex\out\report.pdf (3 page
-s, 155952 bytes).
+blic/amsfonts/cm/cmmi8.pfb><C:/Users/josef/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><C:/Users/josef/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/josef/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/josef/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/josef/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/josef/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/josef/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/josef/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on C:/Users\josef\Documents\Uni\AIW\Latex\out\report.pdf (4 page
+s, 640104 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
+ 76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
