@@ -1,13 +1,13 @@
 import os
-# WICHTIG: Deine Prompt-Builder importieren
+# Builder importieren
 from prompts import build_prompt_from_file as build_prompt_sozial
 from prompt_leistung import build_prompt_from_file as build_prompt_leistung
 
-# --- KONFIGURATION ---
+# Config
 BASE_PATH = r"C:\Development\Development PY\LLM\Biased-LLM-s"
 OUTPUT_FILE = "DEBUG_ALL_PROMPTS.txt"
 
-# Dummy-Kandidat für den Test
+# Test-Dummy
 CANDIDATE = {
     "Name": "Max Mustermann",
     "Geschlecht": "Männlich",
@@ -18,6 +18,7 @@ CANDIDATE = {
 }
 
 
+# Datei-Reader Helper
 def read_file(filename):
     path = os.path.join(BASE_PATH, filename)
     if not os.path.exists(path):
@@ -31,14 +32,14 @@ def main():
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as out_f:
 
-        # ==========================================
-        # TEIL 1: SOZIAL STIPENDIUM
-        # ==========================================
+        # ---------------------------------------------------------
+        # Teil 1: Sozialstipendium
+        # ---------------------------------------------------------
         out_f.write("=" * 60 + "\n")
         out_f.write("   TEIL 1: SOZIAL STIPENDIUM\n")
         out_f.write("=" * 60 + "\n\n")
 
-        # Dateien laden
+        # Texte laden
         kriterien = read_file("Kriterien.txt")
         header = read_file("Header_sozial.txt")
 
@@ -51,7 +52,7 @@ def main():
         for level, filename in scenarios_sozial.items():
             body_text = read_file(filename)
 
-            # Prompt bauen
+            # Prompt erstellen
             prompt = build_prompt_sozial(
                 guidelines=kriterien,
                 cv_header=header,
@@ -64,22 +65,22 @@ def main():
                 nationality=CANDIDATE["Nationalität"]
             )
 
+            # In Datei schreiben
             out_f.write(f"\n--- SZENARIO: {level} ({filename}) ---\n")
             out_f.write("-" * 40 + "\n")
             out_f.write(prompt)
             out_f.write("\n\n" + "#" * 60 + "\n\n")
 
-        # ==========================================
-        # TEIL 2: LEISTUNGS STIPENDIUM
-        # ==========================================
+        # ---------------------------------------------------------
+        # Teil 2: Leistungsstipendium
+        # ---------------------------------------------------------
         out_f.write("=" * 60 + "\n")
         out_f.write("   TEIL 2: LEISTUNGS STIPENDIUM\n")
         out_f.write("=" * 60 + "\n\n")
 
-        # Dateien laden
+        # Texte laden
         kriterien_leistung = read_file("Kriterien_Leistung.txt")
-        # Header bleibt oft gleich, oder gibt es einen eigenen? Wir nehmen Header_sozial wie im Main Code
-        header = read_file("Header_sozial.txt")
+        header = read_file("Header_sozial.txt") # Header recyceln
         base_body_leistung = read_file("Body_Leistung.txt")
 
         scenarios_leistung = {
@@ -91,12 +92,12 @@ def main():
         for level, filename in scenarios_leistung.items():
             erfolg_text = read_file(filename)
 
-            # Prompt bauen (Achtung: cv_body UND cv_body2)
+            # Prompt bauen (Body + Noten)
             prompt = build_prompt_leistung(
                 guidelines=kriterien_leistung,
                 cv_header=header,
-                cv_body=base_body_leistung,  # Der allgemeine Teil
-                cv_body2=erfolg_text,  # Die Noten/Erfolge
+                cv_body=base_body_leistung,
+                cv_body2=erfolg_text,
                 name=CANDIDATE["Name"],
                 gender=CANDIDATE["Geschlecht"],
                 address=CANDIDATE["Wohnort"],
@@ -105,6 +106,7 @@ def main():
                 nationality=CANDIDATE["Nationalität"]
             )
 
+            # In Datei schreiben
             out_f.write(f"\n--- SZENARIO: {level} ({filename}) ---\n")
             out_f.write("-" * 40 + "\n")
             out_f.write(prompt)
